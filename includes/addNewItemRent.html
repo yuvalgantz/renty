@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הוספת מוצר להשכרה - Renty</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <style>
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<header class="bg-dark text-white py-3">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="תפריט">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="Categories.html" >קטגוריות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="container form-container">
+  <h2 class="text-center mb-4">הוספת מוצר להשכרה</h2>
+  <form id="rentalForm">
+    <div class="mb-3">
+      <label class="form-label">קוד מוצר (אוטומטי)</label>
+      <input type="text" class="form-control" id="productCode" readonly>
+    </div>
+    <div class="mb-3"><label class="form-label">שם מוצר</label><input type="text" class="form-control" id="productName" required></div>
+    <div class="mb-3"><label class="form-label">תיאור מוצר</label><textarea class="form-control" id="productDesc" required></textarea></div>
+    <div class="mb-3"><label class="form-label">תמונה</label><input type="file" class="form-control" id="productImage" accept="image/*" required></div>
+    <div class="mb-3"><label class="form-label">שם בעל המוצר</label><input type="text" class="form-control" id="ownerName" required></div>
+    <div class="mb-3"><label class="form-label">טלפון ליצירת קשר</label><input type="tel" class="form-control" id="phone" pattern="^05\d{8}$" required></div>
+    <div class="mb-3">
+      <label class="form-label">קטגוריית מוצר</label>
+      <select class="form-control" id="category" required>
+        <option value="">בחר קטגוריה</option>
+        <option>ציוד לבית</option>
+        <option>ציוד לבית הספר</option>
+        <option>ציוד לחיות מחמד</option>
+        <option>ציוד ספורט</option>
+        <option>ציוד לנסיעות</option>
+        <option>ציוד לאירועים</option>
+        <option>ציוד טכנולוגי</option>
+        <option>ציוד למטבח</option>
+        <option>ציוד לשיפוצים</option>
+        <option>ציוד מוזיקה</option>
+      </select>
+    </div>
+    <div class="mb-3"><label class="form-label">תאריך התחלה</label><input type="text" class="form-control" id="startDate" placeholder="DD/MM/YYYY" required></div>
+    <div class="mb-3"><label class="form-label">תאריך סיום</label><input type="text" class="form-control" id="endDate" placeholder="DD/MM/YYYY" required></div>
+    <div class="mb-3"><label class="form-label">מחיר ליום</label><input type="number" class="form-control" id="price" min="1" required></div>
+    <div class="mb-3"><label class="form-label">רחוב</label><input type="text" class="form-control" id="street" required></div>
+    <div class="mb-3"><label class="form-label">מספר בית</label><input type="number" class="form-control" id="houseNumber" min="1" required></div>
+    <div class="mb-3">
+      <label class="form-label">עיר</label>
+      <select class="form-control" id="city" required>
+        <option value="">בחר עיר</option>
+        <option>תל אביב</option>
+        <option>חיפה</option>
+        <option>ירושלים</option>
+        <option>ראשון לציון</option>
+        <option>הרצליה</option>
+        <option>פתח תקווה</option>
+        <option>נתניה</option>
+        <option>אשדוד</option>
+        <option>רמת גן</option>
+        <option>באר שבע</option>
+      </select>
+    </div>
+    <div class="mb-3"><label class="form-label">הערות נוספות</label><textarea class="form-control" id="notes"></textarea></div>
+    <button type="submit" class="btn btn-warning w-100">שלח</button>
+  </form>
+</div>
+
+<footer class="bg-dark text-white mt-5 pt-4 pb-3">
+  <div class="container footer-flex row text-center text-md-start">
+    <div class="col-md-3 mb-3">
+      <h5>סוגי ציוד להשכרה</h5>
+      <ul class="list-unstyled">
+		<li><a href="homeList.html" target="_blank" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
+		<li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a></li>
+		<li><a href="PetList.html" target="_blank" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
+		<li><a href="SportList.html" target="_blank" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
+        <li><a href="TravelList.html" target="_blank" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
+        <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none">🎉 ציוד לאירועים</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>קטגוריות נוספות</h5>
+      <ul class="list-unstyled">
+        <li>🖥️ ציוד טכנולוגי</li>
+        <li>🍳 ציוד למטבח</li>
+        <li>🔧 ציוד לשיפוצים</li>
+        <li>🎶 ציוד מוזיקה</li>
+      </ul>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>רשימת תפוצה</h5>
+      <p>קבלו עדכונים והטבות במייל:</p>
+      <input type="email" class="form-control mb-2" placeholder="הכנס כתובת מייל">
+      <button class="btn btn-warning w-100">הרשמה</button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>עקבו אחרינו</h5>
+      <div class="d-flex justify-content-center justify-content-md-start gap-3">
+        <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
+        <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
+        <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+      </div>
+    </div>
+  </div>
+  <p class="text-center mt-4 mb-0 small">זקוק לעזרה נוספת? יש לך שאלות נוספות? מוזמן ליצור קשר בטלפון 054-11001100 או במייל <a href="mailto:renty-support@gmail.com" class="text-warning">renty-support@gmail.com</a></p>
+  <p class="text-center mt-4 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
+</footer>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let lastCode = localStorage.getItem("lastProductCode") || 0;
+    let nextCode = parseInt(lastCode) + 1;
+    document.getElementById("productCode").value = nextCode;
+    localStorage.setItem("lastProductCode", nextCode);
+  });
+
+  document.getElementById("rentalForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const houseNum = document.getElementById("houseNumber").value;
+    const start = document.getElementById("startDate").value;
+    const end = document.getElementById("endDate").value;
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+    if (houseNum <= 0) {
+      alert("מספר בית חייב להיות חיובי.");
+      return;
+    }
+    if (!dateRegex.test(start) || !dateRegex.test(end)) {
+      alert("יש להזין תאריך בפורמט DD/MM/YYYY.");
+      return;
+    }
+
+    const form = document.getElementById("rentalForm");
+    const formData = new FormData();
+
+    // צור מחרוזת כתובת משולבת
+    const location = `${document.getElementById("street").value} ${houseNum}, ${document.getElementById("city").value}`;
+
+    formData.append("name", document.getElementById("productName").value);
+    formData.append("description", document.getElementById("productDesc").value);
+    formData.append("category", document.getElementById("category").value);
+    formData.append("price", document.getElementById("price").value);
+    formData.append("ownerName", document.getElementById("ownerName").value);
+    formData.append("ownerPhone", document.getElementById("phone").value);
+    formData.append("location", location);
+    formData.append("startDate", start);
+    formData.append("endDate", end);
+    formData.append("file", document.getElementById("productImage").files[0]);
+
+    try {
+      const res = await fetch("https://addproduct-fyuwxxqqbq-uc.a.run.app", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("העלאה נכשלה");
+
+      const data = await res.json();
+      alert("המוצר נשמר בהצלחה! קוד מזהה: " + data.id);
+      form.reset();
+    } catch (err) {
+      alert("שגיאה בשליחה: " + err.message);
+    }
+  });
+</script>
+
+
+</body>
+</html>

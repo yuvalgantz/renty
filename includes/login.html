@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>טופס הרשמה - Renty</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .alert-message {
+      display: none;
+    }
+    input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="number"] {
+      direction: rtl;
+    }
+  </style>
+</head>
+<body>
+
+<header class="bg-dark text-white py-3">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="תפריט">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="Categories.html" >קטגוריות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
+           
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="container form-container">
+  <h2 class="text-center mb-4">הרשמה ל-Renty</h2>
+  <div id="alertMessage" class="alert alert-info alert-message"></div>
+  <form onsubmit="return validateForm()">
+    <div class="mb-3">
+      <label class="form-label">שם פרטי</label>
+      <input type="text" class="form-control" id="firstName" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">שם משפחה</label>
+      <input type="text" class="form-control" id="lastName" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">תאריך לידה</label>
+      <input type="text" class="form-control" id="birthDate" placeholder="DD/MM/YYYY" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">כתובת מייל</label>
+      <input type="email" class="form-control" id="email" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">אימות כתובת מייל</label>
+      <input type="email" class="form-control" id="confirmEmail" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">טלפון</label>
+      <input type="tel" class="form-control" id="phone" placeholder="05XXXXXXXX" maxlength="10" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">תעודת זהות</label>
+      <input type="text" class="form-control" id="idNumber" maxlength="9" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">סיסמה (לפחות 8 תווים)</label>
+      <input type="password" class="form-control" id="password" minlength="8" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">אימות סיסמה</label>
+      <input type="password" class="form-control" id="confirmPassword" minlength="8" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">עיר מגורים</label>
+      <select class="form-control" id="city" required>
+        <option value="">בחר עיר</option>
+        <option>תל אביב</option>
+        <option>חיפה</option>
+        <option>ירושלים</option>
+        <option>באר שבע</option>
+        <option>אשדוד</option>
+        <option>הרצליה</option>
+        <option>רחובות</option>
+        <option>פתח תקווה</option>
+        <option>נתניה</option>
+        <option>ראשון לציון</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">כתובת</label>
+      <input type="text" class="form-control" id="address" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">מספר בית</label>
+      <input type="number" class="form-control" id="houseNumber" min="1" required>
+    </div>
+    <button type="submit" class="btn btn-warning w-100">הרשמה</button>
+  </form>
+</div>
+
+<script>
+function validateForm() {
+  const alertBox = document.getElementById('alertMessage');
+  alertBox.style.display = 'none';
+
+  function showError(message) {
+    alertBox.className = 'alert alert-danger alert-message';
+    alertBox.innerText = message;
+    alertBox.style.display = 'block';
+  }
+
+  const nameRegex = /^[א-תa-zA-Z]+$/;
+  const phoneRegex = /^0[2-9]\\d{7,8}$/;
+  const idRegex = /^\\d{9}$/;
+
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const confirmEmail = document.getElementById('confirmEmail').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const idNumber = document.getElementById('idNumber').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  const houseNumber = parseInt(document.getElementById('houseNumber').value);
+  const birthDateString = document.getElementById('birthDate').value;
+
+  if (!nameRegex.test(firstName)) return showError("יש להזין שם פרטי תקין באותיות בלבד.");
+  if (!nameRegex.test(lastName)) return showError("יש להזין שם משפחה תקין באותיות בלבד.");
+  if (email !== confirmEmail) return showError("כתובות המייל אינן תואמות.");
+  if (!phoneRegex.test(phone)) return showError("מספר טלפון לא תקין.");
+  if (!idRegex.test(idNumber)) return showError("יש להזין תעודת זהות בת 9 ספרות.");
+  if (password.length < 8) return showError("הסיסמה חייבת להכיל לפחות 8 תווים.");
+  if (password !== confirmPassword) return showError("הסיסמאות אינן תואמות.");
+  if (houseNumber <= 0) return showError("מספר הבית חייב להיות מספר חיובי.");
+
+  const birthParts = birthDateString.split('/');
+  if (birthParts.length !== 3) return showError("יש להזין תאריך בפורמט DD/MM/YYYY");
+  const birthDate = new Date(`${birthParts[2]}-${birthParts[1]}-${birthParts[0]}`);
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+  if (age < 18) return showError("יש להיות בגיל 18 ומעלה.");
+
+  alertBox.className = 'alert alert-success alert-message';
+  alertBox.innerText = "הטופס נשלח בהצלחה! נוצר משתמש חדש.";
+  alertBox.style.display = 'block';
+  return false;
+}
+</script>
+
+<footer class="bg-dark text-white mt-5 pt-4 pb-3">
+  <div class="container footer-flex row text-center text-md-start">
+    <div class="col-md-3 mb-3">
+      <h5>סוגי ציוד להשכרה</h5>
+      <ul class="list-unstyled">
+		<li><a href="homeList.html" target="_blank" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
+		<li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a></li>
+		<li><a href="PetList.html" target="_blank" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
+		<li><a href="SportList.html" target="_blank" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
+        <li><a href="TravelList.html" target="_blank" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
+        <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none">🎉 ציוד לאירועים</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>קטגוריות נוספות</h5>
+      <ul class="list-unstyled">
+        <li>🖥️ ציוד טכנולוגי</li>
+        <li>🍳 ציוד למטבח</li>
+        <li>🔧 ציוד לשיפוצים</li>
+        <li>🎶 ציוד מוזיקה</li>
+      </ul>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>רשימת תפוצה</h5>
+      <p>קבלו עדכונים והטבות במייל:</p>
+      <input type="email" class="form-control mb-2" placeholder="הכנס כתובת מייל">
+      <button class="btn btn-warning w-100">הרשמה</button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>עקבו אחרינו</h5>
+      <div class="d-flex justify-content-center justify-content-md-start gap-3">
+        <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
+        <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
+        <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+      </div>
+    </div>
+  </div>
+  <p class="text-center mt-4 mb-0 small">זקוק לעזרה נוספת? יש לך שאלות נוספות? מוזמן ליצור קשר בטלפון 054-11001100 או במייל <a href="mailto:renty-support@gmail.com" class="text-warning">renty-support@gmail.com</a></p>
+  <p class="text-center mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
+</footer>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAKphZ1LcyjY3fyMYtMUNTL_u5MHIQACbo",
+    authDomain: "renty-final.firebaseapp.com",
+    projectId: "renty-final",
+    storageBucket: "renty-final.firebasestorage.app",
+    messagingSenderId: "897210047726",
+    appId: "1:897210047726:web:39d8a0361054091db7e7ff"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  document.querySelector("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const idNumber = document.getElementById("idNumber").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const houseNumber = document.getElementById("houseNumber").value;
+    const city = document.getElementById("city").value;
+    const birthDate = document.getElementById("birthDate").value;
+
+    const alertBox = document.getElementById('alertMessage');
+    alertBox.style.display = 'none';
+
+    try {
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      const uid = userCredential.user.uid;
+
+      await db.collection("users").doc(uid).set({
+        firstName,
+        lastName,
+        phone,
+        idNumber,
+        address,
+        houseNumber,
+        city,
+        birthDate,
+        email,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      alertBox.className = 'alert alert-success alert-message';
+      alertBox.innerText = "ההרשמה הושלמה בהצלחה!";
+      alertBox.style.display = 'block';
+    } catch (error) {
+      alertBox.className = 'alert alert-danger alert-message';
+      alertBox.innerText = "שגיאה בהרשמה: " + error.message;
+      alertBox.style.display = 'block';
+    }
+  });
+</script>
+
+
+</body>
+</html>

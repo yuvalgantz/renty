@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הזמנת מזרן יוגה - Renty</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/design.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<header class="bg-dark text-white py-3">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="תפריט">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="Categories.html" >קטגוריות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
+			<li class="nav-item"><a class="nav-link text-white" href="userArea.html">אזור אישי</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+<section>
+  <div class="container my-5">
+    <div class="text-center mb-4">
+      <h2 class="display-6 fw-bold text-warning">הזמנת מזרן יוגה</h2>
+      <p class="lead text-muted">השכירו מזרן יוגה איכותי ליום, יומיים או לשבוע – מתאים לאימונים, סדנאות, וטיפולים.</p>
+      <p class="lead text-muted">כלל השדות בטופס הינם חובה</p>
+      <img src="../Images/Yoga.jpg" alt="Yoga Mat" class="img-fluid my-3" style="max-width: 100%; height: auto;">
+    </div>
+
+    <form id="bookingForm" class="border p-4 rounded shadow-sm bg-light" onsubmit="return validateForm()">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="fullName" class="form-label">שם מלא:</label>
+          <input type="text" class="form-control" id="fullName" name="fullName" required>
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">אימייל:</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="col-md-6 mt-3">
+          <label for="phone" class="form-label">מספר טלפון:</label>
+          <input type="tel" class="form-control" id="phone" name="phone" pattern="^05\d{8}$" required 
+                 title="מספר טלפון תקני חייב להתחיל ב-05 ולהכיל 10 ספרות">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="startDate" class="form-label">תאריך התחלה:</label>
+          <input type="date" class="form-control" id="startDate" name="startDate" required>
+        </div>
+        <div class="col-md-6">
+          <label for="endDate" class="form-label">תאריך סיום:</label>
+          <input type="date" class="form-control" id="endDate" name="endDate" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">מחיר ליום:</label>
+          <input type="text" class="form-control" value="15 ש"ח" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">סה"כ ימים:</label>
+          <input type="text" class="form-control" id="totalDays" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">מחיר סופי:</label>
+          <input type="text" class="form-control" id="totalPrice" readonly>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-warning px-5 py-2 fs-5">שלח הזמנה</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="bg-dark text-white mt-5 pt-4 pb-3">
+  <div class="container footer-flex row text-center text-md-start">
+    <div class="col-md-3 mb-3">
+      <h5>סוגי ציוד להשכרה</h5>
+      <ul class="list-unstyled">
+		<li><a href="homeList.html" target="_blank" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
+		<li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a></li>
+		<li><a href="PetList.html" target="_blank" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
+		<li><a href="SportList.html" target="_blank" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
+        <li><a href="TravelList.html" target="_blank" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
+        <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none">🎉 ציוד לאירועים</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>קטגוריות נוספות</h5>
+      <ul class="list-unstyled">
+        <li>🖥️ ציוד טכנולוגי</li>
+        <li>🍳 ציוד למטבח</li>
+        <li>🔧 ציוד לשיפוצים</li>
+        <li>🎶 ציוד מוזיקה</li>
+      </ul>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>רשימת תפוצה</h5>
+      <p>קבלו עדכונים והטבות במייל:</p>
+      <input type="email" class="form-control mb-2" placeholder="הכנס כתובת מייל">
+      <button class="btn btn-warning w-100">הרשמה</button>
+    </div>
+    <div class="col-md-3 mb-3">
+      <h5>עקבו אחרינו</h5>
+      <div class="d-flex justify-content-center justify-content-md-start gap-3">
+        <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
+        <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
+        <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+      </div>
+    </div>
+  </div>
+  <p class="text-center mt-4 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
+</footer>
+
+<script>
+  const dailyPrice = 15;
+
+  function calculateTotal() {
+    const start = new Date($('#startDate').val());
+    const end = new Date($('#endDate').val());
+
+    if (start && end && end >= start) {
+      const timeDiff = end - start;
+      const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+      const total = days * dailyPrice;
+
+      $('#totalDays').val(days);
+      $('#totalPrice').val(total + ' ש"ח');
+    } else {
+      $('#totalDays').val('');
+      $('#totalPrice').val('');
+    }
+  }
+
+  $('#startDate, #endDate').on('change', calculateTotal);
+
+  function validateForm() {
+    const start = new Date($('#startDate').val());
+    const end = new Date($('#endDate').val());
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (start < today) {
+      alert('תאריך ההתחלה חייב להיות מהיום והלאה.');
+      return false;
+    }
+
+    if (end < start) {
+      alert('תאריך הסיום חייב להיות לאחר תאריך ההתחלה.');
+      return false;
+    }
+
+    const phone = $('#phone').val();
+    const phonePattern = /^05\d{8}$/;
+    if (!phonePattern.test(phone)) {
+      alert('אנא הזן מספר טלפון תקני בן 10 ספרות שמתחיל ב-05.');
+      return false;
+    }
+
+    return true;
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

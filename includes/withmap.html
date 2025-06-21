@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>מפת השכרות - Renty</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Heebo', sans-serif;
+    }
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+    .map-description {
+      font-size: 1.2rem;
+      color: #555;
+      background: #f9f9f9;
+      border-right: 4px solid #ffc107;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 700px;
+    }
+  </style>
+</head>
+<body>
+<header class="bg-dark text-white py-3">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="תפריט">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#" onclick="alert('לא ניתן לגשת לדף זה כרגע'); return false;">קטגוריות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#" onclick="alert('לא ניתן לגשת לדף זה כרגע'); return false;">השכרות אחרונות</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#" onclick="alert('לא ניתן לגשת לדף זה כרגע'); return false;">צור קשר</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+  <!-- Map Section -->
+  <section class="py-4">
+    <div class="container">
+      <h2 class="mb-4">מפת השכרות ציוד</h2>
+      <p class="map-description mb-4">
+        כאן תוכלו למצוא ולאתר ציוד שזמין להשכרה באזורכם, או לחפש בכתובת אחרת על פי רצונכם.
+      </p>
+
+      <!-- Distance Filter -->
+      <div class="mb-3">
+        <label for="distanceRange" class="form-label">סנן תוצאות לפי מרחק (מטרים): <span id="distanceValue">1000</span> מ'</label>
+        <input type="range" class="form-range" min="100" max="30000" step="100" id="distanceRange" value="1000" oninput="updateDistanceFilter()" />
+      </div>
+
+      <!-- Address Search -->
+      <div class="mb-3">
+        <label for="addressInput" class="form-label">הזן כתובת לחיפוש:</label>
+        <div class="input-group">
+          <input type="text" id="addressInput" class="form-control" placeholder="לדוגמה: אלנבי 50, תל אביב" />
+          <button class="btn btn-warning" onclick="goToAddress()">חפש</button>
+          <button class="btn btn-secondary ms-2" onclick="goToCurrentLocation()" title="חזור למיקום הנוכחי">
+            <i class="fas fa-location-arrow"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Google Map -->
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white mt-5 pt-4 pb-3">
+    <div class="container row text-center text-md-start">
+      <div class="col-md-3 mb-3">
+        <h5>סוגי ציוד להשכרה</h5>
+        <ul class="list-unstyled">
+          <li>🏠 ציוד לבית</li>
+          <li>🎒 ציוד לבית הספר</li>
+          <li>🐾 ציוד לחיות מחמד</li>
+          <li>🏀 ציוד ספורט</li>
+          <li>🧳 ציוד לנסיעות</li>
+          <li>🎉 ציוד לאירועים</li>
+        </ul>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h5>קטגוריות נוספות</h5>
+        <ul class="list-unstyled">
+          <li>🖥️ ציוד טכנולוגי</li>
+          <li>🍳 ציוד למטבח</li>
+          <li>🔧 ציוד לשיפוצים</li>
+          <li>🎶 ציוד מוזיקה</li>
+        </ul>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h5>רשימת תפוצה</h5>
+        <p>קבלו עדכונים והטבות במייל:</p>
+        <input type="email" class="form-control mb-2" placeholder="הכנס כתובת מייל" />
+        <button class="btn btn-warning w-100">הרשמה</button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h5>עקבו אחרינו</h5>
+        <div class="d-flex justify-content-center justify-content-md-start gap-3">
+          <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
+          <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
+          <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+        </div>
+      </div>
+    </div>
+    <p class="text-center mt-4 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
+  </footer>
+
+  <!-- Map Scripts -->
+  <script>
+    let map, geocoder, markerCurrentLocation;
+    let markers = [];
+
+    const rentalLocations = [
+      { lat: 32.0853, lng: 34.7818, title: "ציוד להשכרה - תל אביב" },
+      { lat: 32.0740, lng: 34.7923, title: "ציוד להשכרה - יפו" },
+      { lat: 32.0897, lng: 34.7976, title: "ציוד להשכרה - נמל תל אביב" },
+      { lat: 32.0617, lng: 34.7683, title: "ציוד להשכרה - פלורנטין" }
+    ];
+
+    function initMap() {
+      geocoder = new google.maps.Geocoder();
+      const defaultLocation = { lat: 32.1663, lng: 34.8360 };
+      map = new google.maps.Map(document.getElementById("map"), { zoom: 13, center: defaultLocation });
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+            map.setCenter(pos);
+            addCurrentLocationMarker(pos);
+            addRentalMarkers();
+            filterMarkersByDistance(parseInt(document.getElementById("distanceRange").value));
+          },
+          () => addRentalMarkers()
+        );
+      } else {
+        addRentalMarkers();
+      }
+    }
+
+    function addCurrentLocationMarker(position) {
+      if (markerCurrentLocation) markerCurrentLocation.setMap(null);
+      markerCurrentLocation = new google.maps.Marker({
+        position,
+        map,
+        title: "המיקום הנוכחי שלי",
+        icon: { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
+      });
+    }
+
+    function addRentalMarkers() {
+      markers.forEach(marker => marker.setMap(null));
+      markers = [];
+      rentalLocations.forEach(loc => {
+        const marker = new google.maps.Marker({
+          position: { lat: loc.lat, lng: loc.lng },
+          map,
+          title: loc.title
+        });
+        markers.push(marker);
+      });
+    }
+
+    function goToAddress() {
+      const address = document.getElementById("addressInput").value;
+      if (!address) return alert("אנא הזן כתובת תקינה");
+      geocoder.geocode({ address }, (results, status) => {
+        if (status === "OK") {
+          const location = results[0].geometry.location;
+          map.setCenter(location);
+          addCurrentLocationMarker(location);
+          filterMarkersByDistance(parseInt(document.getElementById("distanceRange").value));
+        } else {
+          alert("לא ניתן לאתר את הכתובת: " + status);
+        }
+      });
+    }
+
+    function goToCurrentLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+            map.setCenter(pos);
+            addCurrentLocationMarker(pos);
+            filterMarkersByDistance(parseInt(document.getElementById("distanceRange").value));
+          },
+          () => alert("לא ניתן לקבל את המיקום הנוכחי")
+        );
+      } else {
+        alert("הדפדפן שלך לא תומך בקבלת מיקום נוכחי");
+      }
+    }
+
+    function filterMarkersByDistance(distanceMeters) {
+      if (!markerCurrentLocation) return;
+      const userLocation = markerCurrentLocation.getPosition();
+      markers.forEach(marker => {
+        const markerPosition = marker.getPosition();
+        const distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, markerPosition);
+        marker.setMap(distance <= distanceMeters ? map : null);
+      });
+    }
+
+    function updateDistanceFilter() {
+      const distance = parseInt(document.getElementById("distanceRange").value);
+      document.getElementById("distanceValue").textContent = distance;
+      filterMarkersByDistance(distance);
+    }
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpgHVjATrngB5iu9SBfl7W7aI8XZ03Cvg&callback=initMap&libraries=geometry"></script>
+</body>
+</html>

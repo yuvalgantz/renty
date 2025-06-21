@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הוספת מוצר חדש - Renty</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .alert {
+            display: none; /* נסתיר את אזהרות הטופס הישנות ונשתמש ב-Toast */
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.com/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<header class="bg-dark text-white py-3">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="תפריט">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="Categories.html" >קטגוריות</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container form-container">
+    <h2 class="text-center mb-4">טופס שריון מוצר להשכרה</h2>
+    <div class="alert alert-success" id="successMessage">הטופס נשלח בהצלחה! נוצר משתמש חדש.</div>
+    <div class="alert alert-danger" id="errorMessage"></div>
+    <form id="rentalForm">
+        <div class="mb-3">
+            <label class="form-label">תאריך התחלה *</label>
+            <input type="text" id="startDate" class="form-control" placeholder="DD/MM/YYYY" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"> תאריך סיום *</label>
+            <input type="text" id="endDate" class="form-control" placeholder="DD/MM/YYYY" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">מחיר ליום</label>
+            <input type="number" id="dailyPrice" class="form-control" min="1" required >
+        </div>
+        <div class="mb-3">
+            <label class="form-label">סה"כ ימים</label>
+            <input type="number" id="totalDays" class="form-control" readonly>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" id="finalPriceLabel">עלות השכרה</label>
+            <input type="number" id="finalPrice" class="form-control" readonly>
+        </div>
+
+        <div class="mb-3"><label class="form-label"> מספר טלפון *</label><input type="text" id="phoneNum" maxlength="10" class="form-control" required></div>
+        <div class="mb-3"><label class="form-label">מספר טלפון נוסף (אופציונלי)</label><input type="text" id="phoneOptional" class="form-control"></div>
+        <div class="mb-3"><label class="form-label">כתובת אימייל *</label><input type="email" id="email" class="form-control" placeholder="example@domain.com" required></div>
+        <div class="mb-3"><label class="form-label">מספר כרטיס אשראי*</label><input type="text" id="credit" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" pattern="\d{4}-\d{4}-\d{4}-\d{4}" required></div>
+        <div class="mb-3"><label class="form-label">תוקף אשראי*</label><input type="text" id="expiry" class="form-control" placeholder="MM/YY" maxlength="5" pattern="\d{2}/\d{2}" required></div>
+        <div class="mb-3"><label class="form-label">3 ספרות אשראי*</label><input type="text" id="cvv" class="form-control" placeholder="XXX" maxlength="3" pattern="\d{3}" required></div>
+        <div class="mb-3">
+            <label class="form-label">ת.ז של בעל הכרטיס*</label>
+            <input type="text" id="idNumber" maxlength="9" class="form-control" required>
+        </div>
+        <div class="mb-3"><label class="form-label">שם בעל הכרטיס*</label><input type="text" id="cardHolder" class="form-control" required></div>
+        <div class="mb-3">
+            <label class="form-label">משלוח / איסוף עצמי</label><br>
+            <input type="radio" id="deliveryRadio" name="deliveryType" value="delivery" checked> משלוח - מחיר 29 ש"ח לכל צד
+            <input type="radio" id="pickupRadio" name="deliveryType" value="pickup"> איסוף עצמי - ללא עלות
+        </div>
+
+        <div id="deliveryFields" class="optional-section">
+            <h5>פרטי משלוח</h5>
+            <div class="mb-3"><label class="form-label">שם ליצירת קשר</label><input type="text" id="deliveryContactName" name="deliveryContactName" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">טלפון ליצירת קשר</label><input type="text" id="deliveryContactPhone" name="deliveryContactPhone" maxlength="10" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">רחוב</label><input type="text" id="deliveryStreet" name="deliveryStreet" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">מספר בית</label><input type="text" id="deliveryHouseNumber" name="deliveryHouseNumber" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">עיר</label>
+                <select class="form-control" id="deliveryCity" name="deliveryCity" required>
+                    <option value="">בחר עיר</option>
+                    <option>תל אביב</option><option>ירושלים</option><option>חיפה</option><option>באר שבע</option><option>ראשון לציון</option>
+                </select>
+            </div>
+            <div class="mb-3"><label class="form-label">קומה</label>
+                <select class="form-control" id="deliveryFloor" name="deliveryFloor">
+                    <option value="">בחר קומה</option>
+                    <option>קרקע</option>
+                    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option>
+                </select>
+            </div>
+            <div class="mb-3"><label class="form-label">דירה</label>
+                <select class="form-control" id="deliveryApartment" name="deliveryApartment">
+                    <option value="">בחר דירה</option>
+                    <option>בית פרטי</option>
+                    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option>
+                </select>
+            </div>
+            <div class="mb-3"><label class="form-label">תאריך איסוף</label><input type="text" class="form-control" id="pickupDate" name="pickupDate" readonly></div>
+            <div class="mb-3"><label class="form-label">טווח שעות לאיסוף</label>
+                <select class="form-control" id="pickupSlot" name="pickupSlot">
+                    <option value="">בחר טווח</option>
+                    <option>08:00 - 11:00</option>
+                    <option>11:00 - 14:00</option>
+                    <option>14:00 - 17:00</option>
+                    <option>17:00 - 20:00</option>
+                </select>
+            </div>
+            <div class="mb-3"><label class="form-label">תאריך החזרה</label><input type="text" class="form-control" id="returnDate" name="returnDate" readonly></div>
+            <div class="mb-3"><label class="form-label">טווח שעות להחזרה</label>
+                <select class="form-control" id="returnSlot" name="returnSlot">
+                    <option value="">בחר טווח</option>
+                    <option>08:00 - 11:00</option>
+                    <option>11:00 - 14:00</option>
+                    <option>14:00 - 17:00</option>
+                    <option>17:00 - 20:00</option>
+                </select>
+            </div>
+            <div class="mb-3"><label class="form-label">הערות (לא חובה)</label><textarea class="form-control" id="deliveryNotes" name="deliveryNotes"></textarea></div>
+        </div>
+
+        <div id="pickupFields" class="optional-section" style="display: none;">
+            <h5>פרטי איסוף עצמי</h5>
+            <div class="mb-3"><label class="form-label">שם *</label><input type="text" id="pickupName" name="pickupName" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">טלפון *</label><input type="text" id="pickupPhone" name="pickupPhone" maxlength="10" class="form-control" required></div>
+            <div class="mb-3"><label class="form-label">הערות (עד 300 תו)</label><textarea class="form-control" id="pickupNotes" name="pickupNotes" maxlength="300" placeholder="הערות נוספות..."></textarea></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">מחיר כולל</label>
+            <input type="number" id="calculatePrices" class="form-control" readonly>
+        </div>
+        <button type="submit" class="btn btn-warning w-100">שלח</button>
+    </form>
+</div>
+
+<footer class="bg-dark text-white mt-5 pt-4 pb-3">
+    <div class="container footer-flex row text-center text-md-start">
+        <div class="col-md-3 mb-3">
+            <h5>סוגי ציוד להשכרה</h5>
+            <ul class="list-unstyled">
+                <li><a href="homeList.html" target="_blank" class="text-white text-decoration-none"> ציוד לבית</a></li>
+                <li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none"> ציוד לבית הספר</a></li>
+                <li><a href="PetList.html" target="_blank" class="text-white text-decoration-none"> ציוד לחיות מחמד</a></li>
+                <li><a href="SportList.html" target="_blank" class="text-white text-decoration-none"> ציוד ספורט</a></li>
+                <li><a href="TravelList.html" target="_blank" class="text-white text-decoration-none"> ציוד לנסיעות</a></li>
+                <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none"> ציוד לאירועים</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+            <h5>קטגוריות נוספות</h5>
+            <ul class="list-unstyled">
+                <li> ציוד טכנולוגי</li>
+                <li> ציוד למטבח</li>
+                <li> ציוד לשיפוצים</li>
+                <li> ציוד מוזיקה</li>
+            </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+            <h5>רשימת תפוצה</h5>
+            <p>קבלו עדכונים והטבות במייל:</p>
+            <input type="email" class="form-control mb-2" placeholder="הכנס כתובת מייל" id="newsletterEmail">
+            <button class="btn btn-warning w-100" onclick="sendNewsletter()">הרשמה</button>
+        </div>
+        <div class="col-md-3 mb-3">
+            <h5>עקבו אחרינו</h5>
+            <div class="d-flex justify-content-center justify-content-md-start gap-3">
+                <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
+                <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
+                <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center mt-4">
+        <p class="mb-0">זקוק לעזרה נוספת? יש לך שאלות נוספות?</p>
+        <p class="mb-0">מוזמן ליצור קשר: <strong>054-11001100</strong> | <strong><a href="mailto:retny-support@gmail.com" class="text-white">retny-support@gmail.com</a></strong></p>
+    </div>
+    <p class="text-center mt-4 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
+</footer>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="rentyToastSuccess" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                הטופס נשלח בהצלחה!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="סגור"></button>
+        </div>
+    </div>
+    <div id="rentyToastError" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                אירעה שגיאה בשליחת הטופס.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="סגור"></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // איתחול EmailJS בתחילת טעינת הדף
+        emailjs.init("_68MbDHFCtMkv_MS-"); // וודא שזה ה-Public Key הנכון שלך
+
+        const creditInput = document.getElementById('credit');
+        const expiryInput = document.getElementById('expiry');
+        const cvvInput = document.getElementById('cvv');
+        const form = document.getElementById('rentalForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const deliveryRadio = document.getElementById('deliveryRadio');
+        const pickupRadio = document.getElementById('pickupRadio');
+        const deliveryFields = document.getElementById('deliveryFields');
+        const pickupFields = document.getElementById('pickupFields');
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+        const dailyPriceInput = document.getElementById("dailyPrice");
+        const totalDaysInput = document.getElementById("totalDays");
+        const finalPriceInput = document.getElementById("finalPrice");
+        const calculatePricesInput = document.getElementById("calculatePrices");
+
+        // --- קבוע: מספר טלפון של בעל העסק לוואטסאפ (עם קידומת מדינה) ---
+        // חשוב: החלף את '9725XXXXXXXX' במספר הנייד האמיתי של העסק, כולל קידומת מדינה (ללא פלוס/מקפים/רווחים).
+        const BUSINESS_WHATSAPP_NUMBER = '972501234567'; // לדוגמה: 050-1234567 יהפוך ל-972501234567
+
+        // פורמט תאריכים DD/MM/YYYY
+        function formatDateInput(input) {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^0-9]/g, '');
+                if (value.length >= 3 && value.length <= 4) {
+                    value = value.slice(0, 2) + '/' + value.slice(2);
+                } else if (value.length >= 5) {
+                    value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4, 8);
+                }
+                e.target.value = value;
+            });
+        }
+
+        // החלת פורמט על שדות התאריך
+        formatDateInput(startDateInput);
+        formatDateInput(endDateInput);
+
+        // בדיקת תקינות תאריך
+        function isValidDate(dateStr) {
+            if (!/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) return false;
+            const [day, month, year] = dateStr.split('/').map(Number);
+            const date = new Date(year, month - 1, day);
+            return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+        }
+
+        // פורמט כרטיס אשראי
+        creditInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '').slice(0, 16);
+            let formatted = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) formatted += '-';
+                formatted += value[i];
+            }
+            e.target.value = formatted;
+        });
+
+        // פורמט תוקף אשראי
+        expiryInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '').slice(0, 4);
+            if (value.length >= 3) {
+                e.target.value = value.slice(0, 2) + '/' + value.slice(2);
+            } else {
+                e.target.value = value;
+            }
+        });
+
+        // CVV - רק 3 ספרות
+        cvvInput.addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 3);
+        });
+
+        // בדיקת תוקף אשראי
+        function isExpiryValid(expiry) {
+            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) return false;
+            const [month, year] = expiry.split('/');
+            const now = new Date();
+            // יצירת תאריך תפוגה לסוף החודש
+            const expiryDate = new Date(`20${year}`, parseInt(month), 0); // יום 0 בחודש הבא נותן את היום האחרון בחודש הנוכחי
+            return expiryDate >= now;
+        }
+
+        function isValidIsraeliID(id) {
+            id = String(id).trim();
+            if (id.length > 9 || id.length < 5 || isNaN(id)) return false;
+            id = id.padStart(9, '0');
+            let sum = 0;
+            for (let i = 0; i < 9; i++) {
+                let num = Number(id[i]) * ((i % 2) + 1);
+                if (num > 9) num -= 9;
+                sum += num;
+            }
+            return sum % 10 === 0;
+        }
+
+        function isValidPhone(phone) {
+            // תמיכה בפורמט 05X-XXXXXXX או 05XXXXXXXX
+            return /^05\d{8}$/.test(phone) || /^05\d-\d{7}$/.test(phone);
+        }
+
+        // חישוב מחירים
+        function calculatePrices() {
+            const dailyPrice = parseFloat(dailyPriceInput?.value) || 0;
+            const startDate = startDateInput?.value;
+            const endDate = endDateInput?.value;
+
+            let days = 0;
+
+            if (startDate && endDate) {
+                const [startD, startM, startY] = startDate.split("/").map(Number);
+                const [endD, endM, endY] = endDate.split("/").map(Number);
+                const start = new Date(startY, startM - 1, startD);
+                const end = new Date(endY, endM - 1, endD);
+
+                if (end >= start) {
+                    const msInDay = 24 * 60 * 60 * 1000;
+                    const diffDays = Math.round((end - start) / msInDay);
+                    days = diffDays + 1; // כולל את יום ההתחלה
+                }
+            }
+
+            totalDaysInput.value = days;
+
+            // מחיר השכרה בסיסי (כמות ימים * מחיר ליום)
+            const baseRentalPrice = dailyPrice * days;
+
+            let deliveryFee = 0;
+            if (deliveryRadio && deliveryRadio.checked) {
+                deliveryFee = 58; // 29 ש"ח לכל צד = 58 ש"ח סה"כ
+            }
+
+            // מחיר כולל (מחיר השכרה + דמי משלוח)
+            const totalPriceWithDelivery = baseRentalPrice + deliveryFee;
+
+            // עדכון השדות בטופס
+            finalPriceInput.value = baseRentalPrice.toFixed(2); // עלות השכרה
+            calculatePricesInput.value = totalPriceWithDelivery.toFixed(2); // מחיר כולל
+        }
+
+        // ניהול תצוגת שדות משלוח/איסוף
+        function toggleFields() {
+            if (deliveryRadio && pickupRadio) {
+                deliveryFields.style.display = deliveryRadio.checked ? 'block' : 'none';
+                pickupFields.style.display = pickupRadio.checked ? 'block' : 'none';
+
+                // הוספה/הסרה של תכונת required לשדות הנדרשים בתוך קבוצות המשלוח/איסוף
+                const deliveryInputs = deliveryFields.querySelectorAll('input, select');
+                deliveryInputs.forEach(input => {
+                    if (input.id !== 'deliveryNotes') { // הערות זה אופציונלי
+                        input.required = deliveryRadio.checked;
+                    }
+                });
+
+                const pickupInputs = pickupFields.querySelectorAll('input');
+                pickupInputs.forEach(input => {
+                    if (input.id !== 'pickupNotes') { // הערות זה אופציונלי
+                        input.required = pickupRadio.checked;
+                    }
+                });
+            }
+        }
+
+        // עדכון תאריכי איסוף והחזרה בטופס
+        function updatePickupAndReturnDates() {
+            const pickupDateInput = document.getElementById('pickupDate');
+            const returnDateInput = document.getElementById('returnDate');
+
+            if (pickupDateInput) pickupDateInput.value = startDateInput.value;
+            if (returnDateInput) returnDateInput.value = endDateInput.value;
+        }
+
+        // Event Listeners
+        if (startDateInput) startDateInput.addEventListener('input', () => {
+            calculatePrices();
+            updatePickupAndReturnDates();
+        });
+        if (endDateInput) endDateInput.addEventListener('input', () => {
+            calculatePrices();
+            updatePickupAndReturnDates();
+        });
+        if (dailyPriceInput) dailyPriceInput.addEventListener('input', calculatePrices);
+        if (deliveryRadio) deliveryRadio.addEventListener('change', () => {
+            calculatePrices();
+            toggleFields();
+        });
+        if (pickupRadio) pickupRadio.addEventListener('change', () => {
+            calculatePrices();
+            toggleFields();
+        });
+
+
+        // פונקציה לשליחת פרטי הטופס לוואטסאפ (לבעל העסק)
+        function sendRentalDetailsToBusinessWhatsApp(params) {
+            let message = "הזמנת ציוד חדשה ב-Renty!\n\n";
+            message += `**פרטי הזמנה:**\n`;
+            message += `תאריך התחלה: ${params.start_date}\n`;
+            message += `תאריך סיום: ${params.end_date}\n`;
+            message += `סה"כ ימים: ${params.total_days}\n`;
+            message += `מחיר ליום: ${params.daily_price} ש"ח\n`;
+            message += `עלות השכרה: ${params.rental_price} ש"ח\n`;
+            message += `מחיר כולל: ${params.total_price} ש"ח\n\n`;
+
+            message += `**פרטי לקוח:**\n`;
+            message += `אימייל: ${params.email_address}\n`;
+            message += `טלפון: ${params.phone_number}\n`;
+            if (params.phone_optional) {
+                message += `טלפון נוסף: ${params.phone_optional}\n`;
+            }
+            message += `שם בעל הכרטיס: ${params.card_holder_name}\n`;
+            message += `ת.ז: ${params.id_number}\n\n`;
+            // *לא מומלץ לשלוח פרטי אשראי מלאים לוואטסאפ מטעמי אבטחה ו-PCI DSS*
+            // message += `כרטיס אשראי: ${params.credit_card}\n`;
+            // message += `תוקף: ${params.expiry_date}\n`;
+            // message += `CVV: ${params.cvv_code}\n\n`; // CVV לעולם לא נשמר או נשלח!
+
+            message += `**שיטת קבלה/החזרה:**\n${params.delivery_method}\n`;
+
+            if (params.delivery_method.includes('משלוח')) {
+                message += `\n**פרטי משלוח:**\n`;
+                message += `שם ליצירת קשר: ${params.delivery_contact_name}\n`;
+                message += `טלפון ליצירת קשר: ${params.delivery_contact_phone}\n`;
+                message += `כתובת: ${params.delivery_street} ${params.delivery_house_number}, ${params.delivery_city}`;
+                if (params.delivery_floor) message += `, קומה: ${params.delivery_floor}`;
+                if (params.delivery_apartment) message += `, דירה: ${params.delivery_apartment}`;
+                message += `\nתאריך איסוף: ${params.delivery_pickup_date} (${params.delivery_pickup_slot})\n`;
+                message += `תאריך החזרה: ${params.delivery_return_date} (${params.delivery_return_slot})\n`;
+                if (params.delivery_notes) message += `הערות משלוח: ${params.delivery_notes}\n`;
+            } else if (params.delivery_method.includes('איסוף עצמי')) {
+                message += `\n**פרטי איסוף עצמי:**\n`;
+                message += `שם: ${params.pickup_name}\n`;
+                message += `טלפון: ${params.pickup_phone}\n`;
+                if (params.pickup_notes) message += `הערות איסוף: ${params.pickup_notes}\n`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${BUSINESS_WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+            // פותח את וואטסאפ בחלון חדש
+            window.open(whatsappUrl, '_blank');
+        }
+
+
+        // אימות כללי לפני שליחת הטופס (לפני EmailJS)
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // עצור שליחה רגילה כדי לבצע ולידציה ושליחה עם EmailJS
+
+            const expiry = expiryInput.value;
+            const credit = creditInput.value.replace(/[^0-9]/g, '');
+            const cvv = cvvInput.value;
+            const email = document.getElementById('email').value;
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+            const idNumber = document.getElementById('idNumber').value;
+            const phoneNum = document.getElementById('phoneNum').value;
+
+            errorMessage.style.display = 'none'; // הסתר הודעות שגיאה קודמות
+
+            // בדיקת תאריכים
+            if (!isValidDate(startDate)) {
+                errorMessage.textContent = 'תאריך התחלה אינו תקין. יש להזין בפורמט DD/MM/YYYY';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (!isValidDate(endDate)) {
+                errorMessage.textContent = 'תאריך הסיום אינו תקין. יש להזין בפורמט DD/MM/YYYY';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            const [startDay, startMonth, startYear] = startDate.split('/').map(Number);
+            const [endDay, endMonth, endYear] = endDate.split('/').map(Number);
+            const startDateObj = new Date(startYear, startMonth - 1, startDay);
+            const endDateObj = new Date(endYear, endMonth - 1, endD);
+            
+            if (endDateObj < startDateObj) { // ייתכן וניתן להשכיר ליום אחד בלבד
+                errorMessage.textContent = 'תאריך הסיום חייב להיות זהה או אחרי תאריך ההתחלה';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // בדיקת אימייל
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'כתובת האימייל אינה תקינה. יש להזין כתובת אימייל עם @ ונקודה.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // בדיקת כרטיס אשראי
+            if (credit.length !== 16 || !/^(\d{4}){4}$/.test(credit)) {
+                errorMessage.textContent = 'מספר כרטיס אשראי חייב להיות 16 ספרות בפורמט תקין.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (!isExpiryValid(expiry)) {
+                errorMessage.textContent = 'תוקף האשראי אינו תקין או שתוקפו פג.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (!/^\d{3}$/.test(cvv)) {
+                errorMessage.textContent = 'יש להזין 3 ספרות תקינות בקוד CVV.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // בדיקת תעודת זהות וטלפון
+            if (!isValidIsraeliID(idNumber)) {
+                errorMessage.textContent = 'תעודת זהות אינה תקינה. יש להזין מספר תקין בן 9 ספרות.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (!isValidPhone(phoneNum)) {
+                errorMessage.textContent = 'מספר טלפון אינו תקין. יש להזין מספר נייד ישראלי מלא (10 ספרות).';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // ולידציה לשדות חובה של משלוח/איסוף
+            if (deliveryRadio.checked) {
+                const requiredDeliveryFields = ['deliveryContactName', 'deliveryContactPhone', 'deliveryStreet', 'deliveryHouseNumber', 'deliveryCity'];
+                for (const fieldId of requiredDeliveryFields) {
+                    const input = document.getElementById(fieldId);
+                    if (input && !input.value.trim()) {
+                        errorMessage.textContent = 'אנא מלא את כל השדות הנדרשים בפרטי המשלוח.';
+                        errorMessage.style.display = 'block';
+                        return;
+                    }
+                }
+                const pickupDate = document.getElementById('pickupDate').value;
+                const pickupSlot = document.getElementById('pickupSlot').value;
+                const returnDate = document.getElementById('returnDate').value;
+                const returnSlot = document.getElementById('returnSlot').value;
+                if (!pickupDate || !pickupSlot || !returnDate || !returnSlot) {
+                    errorMessage.textContent = 'אנא בחר תאריכים וטווח שעות לאיסוף והחזרה.';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+
+            } else if (pickupRadio.checked) {
+                const requiredPickupFields = ['pickupName', 'pickupPhone'];
+                for (const fieldId of requiredPickupFields) {
+                    const input = document.getElementById(fieldId);
+                    if (input && !input.value.trim()) {
+                        errorMessage.textContent = 'אנא מלא את כל השדות הנדרשים בפרטי האיסוף העצמי.';
+                        errorMessage.style.display = 'block';
+                        return;
+                    }
+                }
+            }
+
+
+            // איסוף כל הנתונים לשליחה באמצעות EmailJS
+            const templateParams = {
+                email_address: email,
+                start_date: startDate,
+                end_date: endDate,
+                daily_price: dailyPriceInput.value,
+                total_days: totalDaysInput.value,
+                rental_price: finalPriceInput.value,
+                phone_number: phoneNum,
+                phone_optional: document.getElementById("phoneOptional").value,
+                credit_card: creditInput.value, // נשלח את הפורמט עם המקפים
+                expiry_date: expiryInput.value,
+                cvv_code: cvvInput.value,
+                id_number: idNumber,
+                card_holder_name: document.getElementById("cardHolder").value,
+                delivery_method: document.querySelector('input[name="deliveryType"]:checked')?.value === 'delivery'
+                    ? 'משלוח - מחיר 29 ש"ח לכל צד'
+                    : 'איסוף עצמי - ללא עלות',
+                total_price: calculatePricesInput.value
+            };
+
+            // הוספת פרטי משלוח אם נבחרה אפשרות משלוח
+            if (deliveryRadio.checked) {
+                templateParams.delivery_contact_name = document.getElementById("deliveryContactName")?.value || '';
+                templateParams.delivery_contact_phone = document.getElementById("deliveryContactPhone")?.value || '';
+                templateParams.delivery_street = document.getElementById("deliveryStreet")?.value || '';
+                templateParams.delivery_house_number = document.getElementById("deliveryHouseNumber")?.value || '';
+                templateParams.delivery_city = document.getElementById("deliveryCity")?.value || '';
+                templateParams.delivery_floor = document.getElementById("deliveryFloor")?.value || '';
+                templateParams.delivery_apartment = document.getElementById("deliveryApartment")?.value || '';
+                templateParams.delivery_pickup_date = document.getElementById("pickupDate")?.value || '';
+                templateParams.delivery_pickup_slot = document.getElementById("pickupSlot")?.value || '';
+                templateParams.delivery_return_date = document.getElementById("returnDate")?.value || '';
+                templateParams.delivery_return_slot = document.getElementById("returnSlot")?.value || '';
+                templateParams.delivery_notes = document.getElementById("deliveryNotes")?.value || '';
+            }
+            // הוספת פרטי איסוף עצמי אם נבחרה אפשרות איסוף עצמי
+            else if (pickupRadio.checked) {
+                templateParams.pickup_name = document.getElementById("pickupName")?.value || '';
+                templateParams.pickup_phone = document.getElementById("pickupPhone")?.value || '';
+                templateParams.pickup_notes = document.getElementById("pickupNotes")?.value || '';
+            }
+
+            console.log("Sending EmailJS with:", templateParams);
+
+            // שלח ל־EmailJS
+            emailjs.send("service_7y4l8x9", "template_jecz5v8", templateParams)
+                .then(() => {
+                    const toastSuccess = new bootstrap.Toast(document.getElementById("rentyToastSuccess"));
+                    toastSuccess.show();
+
+                    // --- קריאה לפונקציית שליחת וואטסאפ לבעל העסק לאחר שליחת המייל בהצלחה ---
+                    sendRentalDetailsToBusinessWhatsApp(templateParams);
+                    // ---------------------------------------------------------------------
+
+                    // איפוס הטופס רק לאחר שליחה מוצלחת
+                    e.target.reset();
+                    // ודא ששדות המשלוח/איסוף חוזרים למצב התחלתי
+                    toggleFields();
+                    calculatePrices(); // אפס את החישובים
+                })
+                .catch((error) => {
+                    console.error("שגיאה בשליחה:", error);
+                    const toastError = new bootstrap.Toast(document.getElementById("rentyToastError"));
+                    toastError.show();
+                });
+        });
+
+        // הרצה ראשונית של חישובים וניהול שדות
+        calculatePrices();
+        toggleFields();
+        updatePickupAndReturnDates();
+
+    });
+</script>
+
+</body>
+</html>
