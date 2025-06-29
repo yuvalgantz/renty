@@ -1,175 +1,269 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>אודות Renty - פלטפורמה חכמה להשכרת ציוד</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="CSS/design.css">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="CSS/design.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
 
-<header class="bg-dark text-white py-3">
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="תפריט">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="Categories.html" >קטגוריות</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
-			<li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-</header>
+    <!-- Firebase compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  </head>
+  <body>
+    <div id="navbar-placeholder"></div>
+    <script>
+      fetch("navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+        });
+    </script>
+    <script src="navbar-auth.js"></script>
 
-
-<section data-aos="fade-up" class="py-5">
-    <div class="container">
+    <section data-aos="fade-up" class="py-5">
+      <div class="container">
         <h2 class="text-center">אודות Renty</h2>
-        <p class="text-center mb-5">Renty היא פלטפורמת השכרת ציוד חכמה, המציעה מגוון רחב של ציוד להשכרה בכל התחומים - בית, ספורט, טכנולוגיה ועוד. אנו שמים דגש על חוויית משתמש איכותית, שירות מהיר ואמין, ותמחור נוח ויעיל.</p>
+        <p class="text-center mb-5">
+          Renty היא פלטפורמת השכרת ציוד חכמה, המציעה מגוון רחב של ציוד להשכרה
+          בכל התחומים - בית, ספורט, טכנולוגיה ועוד. אנו שמים דגש על חוויית משתמש
+          איכותית, שירות מהיר ואמין, ותמחור נוח ויעיל.
+        </p>
 
         <div class="row">
-            <div class="col-md-6">
-                <h3>השירותים שלנו</h3>
-                <p>ב-Renty אנו מציעים מגוון שירותים שמאפשרים לך לשכור ציוד איכותי ומקצועי לפי הצורך שלך. השירותים שלנו כוללים:</p>
-                <ul>
-                    <li>השכרת ציוד לבית ולחצר</li>
-                    <li>השכרת ציוד ספורט ואימון</li>
-                    <li>השכרת ציוד טכנולוגי למטרות עסקיות ואישיות</li>
-                    <li>השכרת ציוד למטבח ולקולינריה</li>
-                    <li>השכרת ציוד לאירועים ופעילויות חוץ</li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <h3>למה לבחור בנו?</h3>
-                <p>למה כדאי לבחור ב-Renty להשכרת ציוד? הנה כמה סיבות:</p>
-                <ul>
-                    <li>איכות: כל הציוד שלנו מתוחזק בצורה הטובה ביותר.</li>
-                    <li>מגוון: אנחנו מציעים ציוד במגוון קטגוריות כדי לענות על כל צורך.</li>
-                    <li>נוחות: הפלטפורמה שלנו מאפשרת לך לשכור ציוד בקלות ובמהירות.</li>
-                    <li>מחירים משתלמים: אנחנו מציעים מחירים הוגנים ומבצעים שונים לכל צורך.</li>
-                    <li>שירות אישי: צוות מקצועי וזמין לשירותך בכל עת.</li>
-                </ul>
-            </div>
+          <div class="col-md-6">
+            <h3>השירותים שלנו</h3>
+            <p>
+              ב-Renty אנו מציעים מגוון שירותים שמאפשרים לך לשכור ציוד איכותי
+              ומקצועי לפי הצורך שלך. השירותים שלנו כוללים:
+            </p>
+            <ul>
+              <li>השכרת ציוד לבית ולחצר</li>
+              <li>השכרת ציוד ספורט ואימון</li>
+              <li>השכרת ציוד טכנולוגי למטרות עסקיות ואישיות</li>
+              <li>השכרת ציוד למטבח ולקולינריה</li>
+              <li>השכרת ציוד לאירועים ופעילויות חוץ</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h3>למה לבחור בנו?</h3>
+            <p>למה כדאי לבחור ב-Renty להשכרת ציוד? הנה כמה סיבות:</p>
+            <ul>
+              <li>איכות: כל הציוד שלנו מתוחזק בצורה הטובה ביותר.</li>
+              <li>
+                מגוון: אנחנו מציעים ציוד במגוון קטגוריות כדי לענות על כל צורך.
+              </li>
+              <li>
+                נוחות: הפלטפורמה שלנו מאפשרת לך לשכור ציוד בקלות ובמהירות.
+              </li>
+              <li>
+                מחירים משתלמים: אנחנו מציעים מחירים הוגנים ומבצעים שונים לכל
+                צורך.
+              </li>
+              <li>שירות אישי: צוות מקצועי וזמין לשירותך בכל עת.</li>
+            </ul>
+          </div>
         </div>
-		<div class="row mt-5">
-    <div class="col-md-4">
-        <h4>החזון שלנו</h4>
-        <p>ב־Renty אנחנו שואפים לשנות את הדרך בה אנשים צורכים ציוד – מהחזקה לרגע לצריכה חכמה, זמנית, ומשתלמת. אנו מקדמים גישה ירוקה ושיתופית שמבוססת על חיסכון, קיימות ונוחות.</p>
-    </div>
-    <div class="col-md-4">
-        <h4>מי אנחנו?</h4>
-        <p>אנחנו צוות מקצוענים עם תשוקה לטכנולוגיה, שירות ופתרונות חכמים. הבאנו את כל הידע הזה כדי לבנות מערכת שתשנה את עולם השכרת הציוד ותשאיר אתכם עם חיוך.</p>
-    </div>
-    <div class="col-md-4">
-        <h4>מה מייחד אותנו?</h4>
-        <p>המערכת שלנו פשוטה לתפעול, השירות אישי ומקצועי, והציוד מגוון ומתוחזק ברמה הגבוהה ביותר. ב־Renty תמצאו את כל מה שצריך – מבלי לצאת מהבית.</p>
-    </div>
-</div>
+        <div class="row mt-5">
+          <div class="col-md-4">
+            <h4>החזון שלנו</h4>
+            <p>
+              ב־Renty אנחנו שואפים לשנות את הדרך בה אנשים צורכים ציוד – מהחזקה
+              לרגע לצריכה חכמה, זמנית, ומשתלמת. אנו מקדמים גישה ירוקה ושיתופית
+              שמבוססת על חיסכון, קיימות ונוחות.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h4>מי אנחנו?</h4>
+            <p>
+              אנחנו צוות מקצוענים עם תשוקה לטכנולוגיה, שירות ופתרונות חכמים.
+              הבאנו את כל הידע הזה כדי לבנות מערכת שתשנה את עולם השכרת הציוד
+              ותשאיר אתכם עם חיוך.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h4>מה מייחד אותנו?</h4>
+            <p>
+              המערכת שלנו פשוטה לתפעול, השירות אישי ומקצועי, והציוד מגוון
+              ומתוחזק ברמה הגבוהה ביותר. ב־Renty תמצאו את כל מה שצריך – מבלי
+              לצאת מהבית.
+            </p>
+          </div>
+        </div>
         <div class="text-center mt-5">
-            <h3>הסרטון שלנו</h3>
-            <p>צפה בסרטון תדמית שלנו כדי להבין איך אנחנו עושים את זה בצורה הטובה ביותר!</p>
-            <div class="embed-responsive embed-responsive-16by9">
-               
-                <video class="embed-responsive-item" controls>
-                    <source src="../Images/RentyVideo.mp4" type="video/mp4">
-                    התוכן לא נתמך בדפדפן שלך.
-                </video>
-            </div>
-			
+          <h3>הסרטון שלנו</h3>
+          <p>
+            צפה בסרטון תדמית שלנו כדי להבין איך אנחנו עושים את זה בצורה הטובה
+            ביותר!
+          </p>
+          <div class="embed-responsive embed-responsive-16by9">
+            <video class="embed-responsive-item" controls>
+              <source src="../Images/RentyVideo.mp4" type="video/mp4" />
+              התוכן לא נתמך בדפדפן שלך.
+            </video>
+          </div>
         </div>
-		<div class="mt-5">
-    <h3 class="text-center">מה הלקוחות שלנו אומרים?</h3>
-    <div class="row mt-4">
-        <div class="col-md-4 text-center">
-            <blockquote class="blockquote">
-                <p>"מצאתי בדיוק את הציוד לחגיגה של הבת שלי – השירות היה מהיר ומקצועי!"</p>
+        <div class="mt-5">
+          <h3 class="text-center">מה הלקוחות שלנו אומרים?</h3>
+          <div class="row mt-4">
+            <div class="col-md-4 text-center">
+              <blockquote class="blockquote">
+                <p>
+                  "מצאתי בדיוק את הציוד לחגיגה של הבת שלי – השירות היה מהיר
+                  ומקצועי!"
+                </p>
                 <footer class="blockquote-footer mt-2">רונית, תל אביב</footer>
-            </blockquote>
-        </div>
-        <div class="col-md-4 text-center">
-            <blockquote class="blockquote">
-                <p>"בזכות Renty לא הייתי צריך לקנות ציוד יקר לאירוע חד־פעמי. פשוט מושלם."</p>
+              </blockquote>
+            </div>
+            <div class="col-md-4 text-center">
+              <blockquote class="blockquote">
+                <p>
+                  "בזכות Renty לא הייתי צריך לקנות ציוד יקר לאירוע חד־פעמי. פשוט
+                  מושלם."
+                </p>
                 <footer class="blockquote-footer mt-2">דני, חיפה</footer>
-            </blockquote>
-        </div>
-        <div class="col-md-4 text-center">
-            <blockquote class="blockquote">
-                <p>"פלטפורמה נוחה, שירות לקוחות מדהים ומבחר רחב. ממליצה בחום!"</p>
+              </blockquote>
+            </div>
+            <div class="col-md-4 text-center">
+              <blockquote class="blockquote">
+                <p>
+                  "פלטפורמה נוחה, שירות לקוחות מדהים ומבחר רחב. ממליצה בחום!"
+                </p>
                 <footer class="blockquote-footer mt-2">סיון, ירושלים</footer>
-            </blockquote>
+              </blockquote>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
-		<div class="text-center mt-5">
-    <p class="h5">יש לכם שאלות? תרצו לקבל עוד מידע?</p>
-    <p>נענה לכם על הכל בעמוד <a href="faq.html" class="text-warning fw-bold">השאלות והתשובות</a></p>
-</div>
-    </div>
-</section>
-
-<footer class="bg-dark text-white mt-5 pt-4 pb-3">
-  <div class="container footer-flex row text-center text-md-start">
-    <div class="col-md-3 mb-3">
-      <h5>סוגי ציוד להשכרה</h5>
-      <ul class="list-unstyled">
-        <li><a href="homeList.html" target="_blank" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
-        <li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a></li>
-        <li><a href="PetList.html" target="_blank" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
-        <li><a href="SportList.html" target="_blank" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
-        <li><a href="travelList.html" target="_blank" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
-        <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none">🎉 ציוד לאירועים</a></li>
-      </ul>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>קטגוריות נוספות</h5>
-      <ul class="list-unstyled">
-        <li>🖥️ ציוד טכנולוגי</li>
-        <li>🍳 ציוד למטבח</li>
-        <li>🔧 ציוד לשיפוצים</li>
-        <li>🎶 ציוד מוזיקה</li>
-      </ul>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>רשימת תפוצה</h5>
-      <p>קבלו עדכונים והטבות במייל:</p>
-      <input type="email" class="form-control mb-2" placeholder="הכנס כתובת מייל">
-      <button class="btn btn-warning w-100">הרשמה</button>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>עקבו אחרינו</h5>
-      <div class="d-flex justify-content-center justify-content-md-start gap-3">
-        <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
-        <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
-        <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+        <div class="text-center mt-5">
+          <p class="h5">יש לכם שאלות? תרצו לקבל עוד מידע?</p>
+          <p>
+            נענה לכם על הכל בעמוד
+            <a href="faq.html" class="text-warning fw-bold">השאלות והתשובות</a>
+          </p>
+        </div>
       </div>
-    </div>
-  </div>
-  <p class="text-center mt-4 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    </section>
 
-<script>
-    AOS.init({
+    <footer class="bg-dark text-white mt-5 pt-4 pb-3">
+      <div class="container footer-flex row text-center text-md-start">
+        <div class="col-md-3 mb-3">
+          <h5>סוגי ציוד להשכרה</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a
+                href="homeList.html"
+                target="_blank"
+                class="text-white text-decoration-none"
+                >🏠 ציוד לבית</a
+              >
+            </li>
+            <li>
+              <a
+                href="SchoolList.html"
+                target="_blank"
+                class="text-white text-decoration-none"
+                >🎒 ציוד לבית הספר</a
+              >
+            </li>
+            <li>
+              <a
+                href="PetList.html"
+                target="_blank"
+                class="text-white text-decoration-none"
+                >🐾 ציוד לחיות מחמד</a
+              >
+            </li>
+            <li>
+              <a
+                href="SportList.html"
+                target="_blank"
+                class="text-white text-decoration-none"
+                >🏀 ציוד ספורט</a
+              >
+            </li>
+            <li>
+              <a
+                href="travelList.html"
+                target="_blank"
+                class="text-white text-decoration-none"
+                >🧳 ציוד לנסיעות</a
+              >
+            </li>
+            <li>
+              <a
+                href="EventList.html"
+                target="_blank"
+                class="text-white text-decoration-none"
+                >🎉 ציוד לאירועים</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>קטגוריות נוספות</h5>
+          <ul class="list-unstyled">
+            <li>🖥️ ציוד טכנולוגי</li>
+            <li>🍳 ציוד למטבח</li>
+            <li>🔧 ציוד לשיפוצים</li>
+            <li>🎶 ציוד מוזיקה</li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>רשימת תפוצה</h5>
+          <p>קבלו עדכונים והטבות במייל:</p>
+          <input
+            type="email"
+            class="form-control mb-2"
+            placeholder="הכנס כתובת מייל"
+          />
+          <button class="btn btn-warning w-100">הרשמה</button>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>עקבו אחרינו</h5>
+          <div
+            class="d-flex justify-content-center justify-content-md-start gap-3"
+          >
+            <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
+            <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+          </div>
+        </div>
+      </div>
+      <p class="text-center mt-4 mb-0 small">
+        © 2025 Renty. כל הזכויות שמורות.
+      </p>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      AOS.init({
         duration: 800,
-        once: true
-    });
-</script>
-
-</body>
+        once: true,
+      });
+    </script>
+  </body>
 </html>

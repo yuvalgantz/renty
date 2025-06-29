@@ -1,4 +1,18 @@
 window.addEventListener("load", () => {
+  function logoutUser() {
+    localStorage.setItem("didLogout", "true");
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        window.location.href = "logout.html";
+      })
+      .catch((error) => {
+        console.error("שגיאה בהתנתקות:", error);
+        alert("אירעה שגיאה בעת ההתנתקות.");
+      });
+  }
+
   const firebaseConfig = {
     apiKey: "AIzaSyAKphZ1LcyjY3fyMYtMUNTL_u5MHIQACbo",
     authDomain: "renty-final.firebaseapp.com",
@@ -18,8 +32,6 @@ window.addEventListener("load", () => {
     const navbar = document.querySelector(".navbar-nav");
     navbar.innerHTML = ""; // רוקן את התפריט
 
-    console.log("user", user);
-
     if (user) {
       // משוך שם פרטי מה-Firestore
       const doc = await db.collection("users").doc(user.uid).get();
@@ -38,8 +50,16 @@ window.addEventListener("load", () => {
         <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="userArea.html">אזור אישי</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="addNewItemRent.html">העלאת מוצר</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="#" onclick="logoutUser()">התנתקות</a></li>
+        <li class="nav-item"><a id="logout-link" class="nav-link text-white" href="#"">התנתקות</a></li>
       `;
+
+      const logoutLink = document.getElementById("logout-link");
+      if (logoutLink) {
+        logoutLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          logoutUser();
+        });
+      }
     } else {
       // תפריט רגיל למי שלא מחובר
       navbar.innerHTML += `
@@ -51,18 +71,4 @@ window.addEventListener("load", () => {
       `;
     }
   });
-
-  function logoutUser() {
-    localStorage.setItem("didLogout", "true");
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        window.location.href = "logout.html";
-      })
-      .catch((error) => {
-        console.error("שגיאה בהתנתקות:", error);
-        alert("אירעה שגיאה בעת ההתנתקות.");
-      });
-  }
 });

@@ -32,6 +32,15 @@
 
 <body>
   <div id="navbar-placeholder"></div>
+   <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+  </script>
+  <script src="navbar-auth.js"></script>
+  
   <section data-aos="fade-up" class="py-5">
     <div class="container">
       <h4 class="mb-4">הקטגוריות המובילות:</h4>
@@ -363,13 +372,6 @@
     });
   });
   </script>
-    <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar-placeholder").innerHTML = data;
-      });
-  </script>
-   <script src="navbar-auth.js"></script>
+ 
 </body>
 </html>
