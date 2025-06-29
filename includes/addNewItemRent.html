@@ -183,6 +183,7 @@
     formData.append("location", location);
     formData.append("startDate", start);
     formData.append("endDate", end);
+    formData.append("email", localStorage.getItem("loggedInEmail"))
     formData.append("file", document.getElementById("productImage").files[0]);
 
     try {
@@ -195,7 +196,10 @@
 
       const data = await res.json();
       alert("המוצר נשמר בהצלחה! קוד מזהה: " + data.id);
-      form.reset();
+      localStorage.setItem("lastProductId", data.id);
+      window.location.href = "product.html?id=" + data.id;
+
+
     } catch (err) {
       alert("שגיאה בשליחה: " + err.message);
     }

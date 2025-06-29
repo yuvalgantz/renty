@@ -1,5 +1,3 @@
-# Re-execute the corrected pet equipment HTML generation and save it again after reset
-corrected_pet_equipment_html = """
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -52,55 +50,59 @@ corrected_pet_equipment_html = """
     <div class="subtitle">
       <p>ציוד לחיות מחמד</p>
     </div>
+    <div id="petProducts" class="row mb-4"></div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-    <div class="row mb-4">
-      <div class="col-4">
-        <img src="../Images/DogBed1.jpg" alt="מיטה לכלב בינוני" class="img-fluid product-img">
-      </div>
-      <div class="col-8">
-        <p><strong>מיטה לכלב בינוני</strong></p>
-        <p><strong>מחיר השכרה ליום:</strong> 18 ש"ח</p>
-        <p><strong>נמצא ב:</strong> ראשון לציון</p>
-        <a href="DogBed.html" class="btn btn-warning">שריין מוצר</a>
-      </div>
-    </div>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAKphZ1LcyjY3fyMYtMUNTL_u5MHIQACbo",
+        authDomain: "renty-final.firebaseapp.com",
+        projectId: "renty-final",
+        storageBucket: "renty-final.appspot.com",
+        messagingSenderId: "897210047726",
+        appId: "1:897210047726:web:39d8a0361054091db7e7ff"
+      };
 
-    <div class="row mb-4">
-      <div class="col-4">
-        <img src="../Images/DogLeash.jpg" alt="רצועה לכלב" class="img-fluid product-img">
-      </div>
-      <div class="col-8">
-        <p><strong>רצועה לכלב</strong></p>
-        <p><strong>מחיר השכרה ליום:</strong> 5 ש"ח</p>
-        <p><strong>נמצא ב:</strong> תל אביב</p>
-        <button class="btn btn-secondary" onclick="alert('לא ניתן לבצע הזמנה עבור מוצר זה כרגע.');">שריין מוצר</button>
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      const storage = firebase.storage();
 
-      </div>
-    </div>
+      window.addEventListener("load", async () => {
+        const productsContainer = document.getElementById("petProducts");
 
-    <div class="row mb-4">
-      <div class="col-4">
-        <img src="../Images/CatTower.jpg" alt="מתקן משחקים לחתול" class="img-fluid product-img">
-      </div>
-      <div class="col-8">
-        <p><strong>מתקן משחקים לחתול</strong></p>
-        <p><strong>מחיר השכרה ליום:</strong> 25 ש"ח</p>
-        <p><strong>נמצא ב:</strong> חיפה</p>
-        <button class="btn btn-secondary" onclick="alert('לא ניתן לבצע הזמנה עבור מוצר זה כרגע.');">שריין מוצר</button>
-      </div>
-    </div>
+        const snapshot = await db.collection("products")
+          .where("category", "==", "ציוד לחיות מחמד")
+          .orderBy("createdAt", "desc")
+          .get();
 
-    <div class="row mb-4">
-      <div class="col-4">
-        <img src="../Images/Aquarium.jpg" alt="אקווריום" class="img-fluid product-img">
-      </div>
-      <div class="col-8">
-        <p><strong>אקווריום</strong></p>
-        <p><strong>מחיר השכרה ליום:</strong> 24 ש"ח</p>
-        <p><strong>נמצא ב:</strong> כפר סבא</p>
-        <a href="Aquarium.html" class="btn btn-warning">שריין מוצר</a>
-      </div>
-    </div>
+        snapshot.forEach(async (doc) => {
+          const data = doc.data();
+          const id = doc.id;
+
+          const ref = storage.refFromURL(data.imageUrl);
+          const imageUrl = await ref.getDownloadURL();
+
+          const productHtml = `
+            <div class="row mb-4">
+              <div class="col-4">
+                <img src="${imageUrl}" alt="${data.name}" class="img-fluid product-img">
+              </div>
+              <div class="col-8">
+                <p><strong>${data.name}</strong></p>
+                <p><strong>מחיר השכרה ליום:</strong> ${data.price} ש"ח</p>
+                <p><strong>נמצא ב:</strong> ${data.location}</p>
+                <a href="product.html?id=${id}" class="btn btn-warning">שריין מוצר</a>
+              </div>
+            </div>
+          `;
+
+          productsContainer.insertAdjacentHTML("beforeend", productHtml);
+        });
+      });
+    </script>
+
   </div>
 </section>
 
@@ -109,12 +111,12 @@ corrected_pet_equipment_html = """
     <div>
       <h3>סוגי ציוד להשכרה</h3>
       <ul>
-		<li><a href="homeList.html" target="_blank" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
-		<li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a></li>
-		<li><a href="PetList.html" target="_blank" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
-		<li><a href="SportList.html" target="_blank" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
-        <li><a href="TravelList.html" target="_blank" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
-        <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none">🎉 ציוד לאירועים</a></li>
+		<li><a href="homeList.html" target="_blank" class="text-dark text-decoration-none">🏠 ציוד לבית</a></li>
+		<li><a href="SchoolList.html" target="_blank" class="text-dark text-decoration-none">🎒 ציוד לבית הספר</a></li>
+		<li><a href="PetList.html" target="_blank" class="text-dark text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
+		<li><a href="SportList.html" target="_blank" class="text-dark text-decoration-none">🏀 ציוד ספורט</a></li>
+        <li><a href="TravelList.html" target="_blank" class="text-dark text-decoration-none">🧳 ציוד לנסיעות</a></li>
+        <li><a href="EventList.html" target="_blank" class="text-dark text-decoration-none">🎉 ציוד לאירועים</a></li>
       </ul>
     </div>
     <div>
@@ -148,11 +150,3 @@ corrected_pet_equipment_html = """
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
-"""
-
-# Save to file
-file_path = "/mnt/data/pet_equipment.html"
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(corrected_pet_equipment_html)
-
-file_path

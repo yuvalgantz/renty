@@ -1,431 +1,375 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Renty - פלטפורמה חכמה להשכרת ציוד</title>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+    crossorigin="anonymous" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  
+
 
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-  
+
 
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet" />
-  
+
   <link rel="stylesheet" href="../CSS/design.css" />
 </head>
-<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
 <script type="text/javascript">
-   (function(){
-      emailjs.init({
-        publicKey: "_68MbDHFCtMkv_MS-",
-      });
-   })();
-</script>
-<body>
-
-<header class="bg-dark text-white py-3">
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="תפריט">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="Categories.html" >קטגוריות</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
-			<li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
-			<li class="nav-item"><a class="nav-link text-white" href="userArea.html">אזור אישי</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<section data-aos="fade-up" class="py-5">
-  <div class="container">
-    <h4 class="mb-4">הקטגוריות המובילות:</h4>
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-	<div class="col">
-	  <div class="card text-center" onclick="location.href='homeList.html'" style="cursor:pointer;">
-		<img src="../Images/Home.jpg" class="card-img-top category-icon" alt="ציוד לבית">
-		<div class="card-body"><p>ציוד לבית</p></div>
-	  </div>
-	</div>
-
-	<div class="col">
-	  <div class="card text-center" onclick="location.href='schoolList.html'" style="cursor:pointer;">
-		<img src="../Images/School.jpg" class="card-img-top category-icon" alt="ציוד לבית הספר">
-		<div class="card-body"><p>ציוד לבית הספר</p></div>
-	  </div>
-	</div>
-      <div class="col">
-        <div class="card text-center" onclick="location.href='PetList.html'" style="cursor:pointer;">
-          <img src="../Images/Pet.jpg" class="card-img-top category-icon" alt="ציוד לחיות מחמד">
-          <div class="card-body"><p>ציוד לחיות מחמד</p></div>
-        </div>
-      </div>
-      <div class="col">
-        <a href="../Includes/SportList.html" style="text-decoration: none; color: inherit;">
-          <div class="card text-center">
-            <img src="../Images/Sport.jpg" class="card-img-top category-icon" alt="ציוד ספורט">
-            <div class="card-body"><p>ציוד ספורט ואימון</p></div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section data-aos="fade-up" data-aos-delay="200" class="py-5">
-  <div class="container">
-    <h4 class="mb-4">פורסם לאחרונה:</h4>
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-<div class="col">
-  <a href="Bicycle.html" class="text-decoration-none text-dark">
-    <div class="card text-center">
-      <img src="../Images/Bicycle.jpg" alt="אופני הרים" class="card-img-top category-icon">
-      <div class="card-body"><p>אופני הרים</p></div>
-    </div>
-  </a>
-</div>
-
-<div class="col">
-  <a href="BBQ.html" class="text-decoration-none text-dark">
-    <div class="card text-center">
-      <img src="../Images/BBQ.jpg" alt="מנגל" class="card-img-top category-icon">
-      <div class="card-body"><p>מנגל לאירועים</p></div>
-    </div>
-  </a>
-</div>
-
-<div class="col">
-  <a href="Suitcase.html" class="text-decoration-none text-dark">
-    <div class="card text-center">
-      <img src="../Images/Suitcase.jpg" alt="מזוודה" class="card-img-top category-icon">
-      <div class="card-body"><p>מזוודה גדולה</p></div>
-    </div>
-  </a>
-</div>
-
-<div class="col">
-  <a href="Projector.html" class="text-decoration-none text-dark">
-    <div class="card text-center">
-      <img src="../Images/Projector.jpg" alt="מקרן" class="card-img-top category-icon">
-      <div class="card-body"><p>מקרן למצגות</p></div>
-    </div>
-  </a>
-</div>
-
-</section>
-<section data-aos="fade-up" data-aos-delay="300" class="py-5 bg-light">
-  <div class="container text-center">
-    <h4 class="mb-3">נתקלתם בשאלה? צריכים מענה?</h4>
-    <p class="mb-4">הצ'אט בוט שלנו יתן לכם את התשובות המדויקות, בכל שעה שתרצו.</p>
-	<a href="ChatBot.html" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
-	  למעבר לצ'אט בוט
-	  <i class="fas fa-robot ms-2"></i>
-	</a>
-  </div>
-</section>
-
-<section data-aos="fade-up" data-aos-delay="300" class="py-5">
-  <div class="container">
-    <h4 class="mb-4 text-center">המלצות - גולשים ממליצים:</h4>
-
-    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="9000">
-      <div class="carousel-inner">
-
-
-        <div class="carousel-item active">
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-              <div class="card h-100 text-center">
-                <div class="card-body">
-                  <p>"שירות מצוין! הציוד היה חדש ונוח."</p>
-                  <h5>מיכל כהן</h5>
-                  <p class="text-muted">לקוחה מרוצה</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100 text-center">
-                <div class="card-body">
-                  <p>"חוויה נהדרת! שירות הלקוחות היה מעולה."</p>
-                  <h5>יונתן לוי</h5>
-                  <p class="text-muted">לקוח מרוצה</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100 text-center">
-                <div class="card-body">
-                  <p>"פעם ראשונה שאני שוכר ציוד אונליין – היה פשוט ויעיל!"</p>
-                  <h5>אור אלון</h5>
-                  <p class="text-muted">משתמש חדש</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-              <div class="card h-100 text-center">
-                <div class="card-body">
-                  <p>"המחירים נוחים ותמיד מוצאים את מה שצריך!"</p>
-                  <h5>דניאל מזרחי</h5>
-                  <p class="text-muted">לקוח מרוצה</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100 text-center">
-                <div class="card-body">
-                  <p>"שכרנו ציוד לבית הספר – חוויה מעולה, בטוח נשתמש שוב!"</p>
-                  <h5>הדר נחום</h5>
-                  <p class="text-muted">אם לילד בכיתה ב'</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100 text-center">
-                <div class="card-body">
-                  <p>"הזמנתי מקרן למסיבה – הגיע בזמן ועם כל האביזרים. תודה!"</p>
-                  <h5>רוני פרידמן</h5>
-                  <p class="text-muted">לקוח פרטי</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-        <span class="visually-hidden">הקודם</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-        <span class="visually-hidden">הבא</span>
-      </button>
-    </div>
-  </div>
-</section>
-
-
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-        <span class="visually-hidden">הקודם</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-        <span class="visually-hidden">הבא</span>
-      </button>
-    </div>
-  </div>
-</section>
-
-
-<button id="backToTop" onclick="scrollToTop()" class="btn btn-dark position-fixed bottom-0 end-0 m-4" aria-label="חזרה למעלה">
-  <i class="fas fa-arrow-up"></i>
-</button>
-
-
-<footer class="bg-dark text-white mt-5 pt-4 pb-3">
-  <div class="container row text-center text-md-start">
-    <div class="col-md-3 mb-3">
-      <h5>סוגי ציוד להשכרה</h5>
-      <ul class="list-unstyled">
-		<li><a href="homeList.html" target="_blank" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
-		<li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a></li>
-		<li><a href="PetList.html" target="_blank" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
-		<li><a href="SportList.html" target="_blank" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
-        <li><a href="TravelList.html" target="_blank" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
-        <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none">🎉 ציוד לאירועים</a></li>
-      </ul>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>קטגוריות נוספות</h5>
-      <ul class="list-unstyled">
-        <li>🖥️ ציוד טכנולוגי</li>
-        <li>🍳 ציוד למטבח</li>
-        <li><a href="UpgradeList.html" target="_blank" class="text-white text-decoration-none">🔧 ציוד לשיפוצים</a></li>
-        <li>🎶 ציוד מוזיקה</li>
-      </ul>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>רשימת תפוצה</h5>
-      <p>קבלו עדכונים והטבות במייל:</p>
-      <input type="email" id="newsletterEmail" class="form-control mb-2" placeholder="הכנס כתובת מייל" />
-      <button class="btn btn-warning w-100" onclick="sendNewsletter()">הרשמה</button>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>עקבו אחרינו</h5>
-      <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-        <a href="#" aria-label="פייסבוק"><i class="fab fa-facebook fa-2x text-white"></i></a>
-        <a href="#" aria-label="אינסטגרם"><i class="fab fa-instagram fa-2x text-white"></i></a>
-        <a href="#" aria-label="וואטסאפ"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
-      </div>
-    </div>
-  </div>
-  <p class="text-center mt-4 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
-  	 <p class="text-center mt-4 mb-0 small">זקוק לעזרה נוספת? יש לך שאלות נוספות? מוזמן ליצור קשר בטלפון 054-11001100 או במייל <a href="mailto:renty-support@gmail.com" class="text-warning">renty-support@gmail.com</a></p>
-
-</footer>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
-
-<script>
-  AOS.init();
-
-  function showUnavailableMessage() {
-    alert('מצטערים, אופציה זו עדיין לא זמינה.');
-  }
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  AOS.init();
-
-  function showUnavailableMessage() {
-    alert('מצטערים, אופציה זו עדיין לא זמינה.');
-  }
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-
-</script>
-<script type="text/javascript">
-  (function(){
+  (function () {
     emailjs.init({
       publicKey: "_68MbDHFCtMkv_MS-",
     });
   })();
-
- function sendNewsletter() {
-  const emailInput = document.getElementById('newsletterEmail');
-  const email = emailInput.value.trim();
-
-  if (!email || !email.includes('@')) {
-    alert('אנא הזן כתובת מייל תקינה.');
-    return;
-  }
-
-  // זה המקום לשים את זה:
-  const templateParams = {
-    email: email  // זה חייב להתאים לשם המשתנה בתבנית שלך: {{email}}
-  };
-
-  emailjs.send("service_7y4l8x9", "template_3ou5uj1", templateParams)
-    .then(() => {
-      alert('נרשמת בהצלחה לרשימת התפוצה של Renty 🎉');
-      emailInput.value = '';
-
-      const successMsg = document.createElement('div');
-      successMsg.className = 'alert alert-success mt-2';
-      successMsg.textContent = 'ההרשמה בוצעה בהצלחה!';
-      emailInput.parentNode.appendChild(successMsg);
-
-      setTimeout(() => successMsg.remove(), 5000);
-    })
-    .catch((error) => {
-      console.error("EmailJS Error:", error);
-      alert('אירעה שגיאה בשליחה. נסה שוב מאוחר יותר.');
-    });
-}
 </script>
-<!-- Firebase compat SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAKphZ1LcyjY3fyMYtMUNTL_u5MHIQACbo",
-    authDomain: "renty-final.firebaseapp.com",
-    projectId: "renty-final",
-    storageBucket: "renty-final.firebasestorage.app",
-    messagingSenderId: "897210047726",
-    appId: "1:897210047726:web:39d8a0361054091db7e7ff"
-  };
+<body>
+  <div id="navbar-placeholder"></div>
+  <section data-aos="fade-up" class="py-5">
+    <div class="container">
+      <h4 class="mb-4">הקטגוריות המובילות:</h4>
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+          <div class="card text-center" onclick="location.href='homeList.html'" style="cursor:pointer;">
+            <img src="../Images/Home.jpg" class="card-img-top category-icon" alt="ציוד לבית">
+            <div class="card-body">
+              <p>ציוד לבית</p>
+            </div>
+          </div>
+        </div>
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+        <div class="col">
+          <div class="card text-center" onclick="location.href='schoolList.html'" style="cursor:pointer;">
+            <img src="../Images/School.jpg" class="card-img-top category-icon" alt="ציוד לבית הספר">
+            <div class="card-body">
+              <p>ציוד לבית הספר</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card text-center" onclick="location.href='PetList.html'" style="cursor:pointer;">
+            <img src="../Images/Pet.jpg" class="card-img-top category-icon" alt="ציוד לחיות מחמד">
+            <div class="card-body">
+              <p>ציוד לחיות מחמד</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <a href="../Includes/SportList.html" style="text-decoration: none; color: inherit;">
+            <div class="card text-center">
+              <img src="../Images/Sport.jpg" class="card-img-top category-icon" alt="ציוד ספורט">
+              <div class="card-body">
+                <p>ציוד ספורט ואימון</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  auth.onAuthStateChanged(async (user) => {
-    const navbar = document.querySelector(".navbar-nav");
-    navbar.innerHTML = ""; // רוקן את התפריט
 
-    if (user) {
-      // משוך שם פרטי מה-Firestore
-      const doc = await db.collection("users").doc(user.uid).get();
-      const firstName = doc.exists ? doc.data().firstName : "משתמש";
+  <section data-aos="fade-up" data-aos-delay="200" class="py-5">
+  <div class="container">
+    <h4 class="mb-4">פורסם לאחרונה:</h4>
+    <div id="recentProducts" class="row row-cols-1 row-cols-md-4 g-4"></div>
+  </div>
+</section>
 
-      // הוסף ברכה
-      const greeting = document.createElement("li");
-      greeting.className = "nav-item";
-      greeting.innerHTML = `<span class="nav-link text-white">שלום ${firstName}</span>`;
-      navbar.appendChild(greeting);
 
-      // תפריט למשתמש מחובר
-      navbar.innerHTML += `
-        <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="Categories.html">קטגוריות</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="userArea.html">אזור אישי</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="addNewItemRent.html">העלאת מוצר</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="#" onclick="logoutUser()">התנתקות</a></li>
-      `;
-    } else {
-      // תפריט רגיל למי שלא מחובר
-      navbar.innerHTML += `
-        <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="Categories.html">קטגוריות</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
-      `;
+  <section data-aos="fade-up" data-aos-delay="300" class="py-5 bg-light">
+    <div class="container text-center">
+      <h4 class="mb-3">נתקלתם בשאלה? צריכים מענה?</h4>
+      <p class="mb-4">הצ'אט בוט שלנו יתן לכם את התשובות המדויקות, בכל שעה שתרצו.</p>
+      <a href="ChatBot.html" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
+        למעבר לצ'אט בוט
+        <i class="fas fa-robot ms-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <section data-aos="fade-up" data-aos-delay="300" class="py-5">
+    <div class="container">
+      <h4 class="mb-4 text-center">המלצות - גולשים ממליצים:</h4>
+
+      <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="9000">
+        <div class="carousel-inner">
+
+
+          <div class="carousel-item active">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <div class="col">
+                <div class="card h-100 text-center">
+                  <div class="card-body">
+                    <p>"שירות מצוין! הציוד היה חדש ונוח."</p>
+                    <h5>מיכל כהן</h5>
+                    <p class="text-muted">לקוחה מרוצה</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100 text-center">
+                  <div class="card-body">
+                    <p>"חוויה נהדרת! שירות הלקוחות היה מעולה."</p>
+                    <h5>יונתן לוי</h5>
+                    <p class="text-muted">לקוח מרוצה</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100 text-center">
+                  <div class="card-body">
+                    <p>"פעם ראשונה שאני שוכר ציוד אונליין – היה פשוט ויעיל!"</p>
+                    <h5>אור אלון</h5>
+                    <p class="text-muted">משתמש חדש</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <div class="col">
+                <div class="card h-100 text-center">
+                  <div class="card-body">
+                    <p>"המחירים נוחים ותמיד מוצאים את מה שצריך!"</p>
+                    <h5>דניאל מזרחי</h5>
+                    <p class="text-muted">לקוח מרוצה</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100 text-center">
+                  <div class="card-body">
+                    <p>"שכרנו ציוד לבית הספר – חוויה מעולה, בטוח נשתמש שוב!"</p>
+                    <h5>הדר נחום</h5>
+                    <p class="text-muted">אם לילד בכיתה ב'</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100 text-center">
+                  <div class="card-body">
+                    <p>"הזמנתי מקרן למסיבה – הגיע בזמן ועם כל האביזרים. תודה!"</p>
+                    <h5>רוני פרידמן</h5>
+                    <p class="text-muted">לקוח פרטי</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">הקודם</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">הבא</span>
+        </button>
+      </div>
+    
+    
+    
+    </div>
+  </section>
+
+
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">הקודם</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">הבא</span>
+  </button>
+  </div>
+  </div>
+  </section>
+
+
+  <button id="backToTop" onclick="scrollToTop()" class="btn btn-dark position-fixed bottom-0 end-0 m-4"
+    aria-label="חזרה למעלה">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+
+  <footer class="bg-dark text-white mt-5 pt-4 pb-3">
+    <div class="container row text-center text-md-start">
+      <div class="col-md-3 mb-3">
+        <h5>סוגי ציוד להשכרה</h5>
+        <ul class="list-unstyled">
+          <li><a href="homeList.html" target="_blank" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
+          <li><a href="SchoolList.html" target="_blank" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a>
+          </li>
+          <li><a href="PetList.html" target="_blank" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
+          <li><a href="SportList.html" target="_blank" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
+          <li><a href="TravelList.html" target="_blank" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
+          <li><a href="EventList.html" target="_blank" class="text-white text-decoration-none">🎉 ציוד לאירועים</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h5>קטגוריות נוספות</h5>
+        <ul class="list-unstyled">
+          <li>🖥️ ציוד טכנולוגי</li>
+          <li>🍳 ציוד למטבח</li>
+          <li><a href="UpgradeList.html" target="_blank" class="text-white text-decoration-none">🔧 ציוד לשיפוצים</a>
+          </li>
+          <li>🎶 ציוד מוזיקה</li>
+        </ul>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h5>רשימת תפוצה</h5>
+        <p>קבלו עדכונים והטבות במייל:</p>
+        <input type="email" id="newsletterEmail" class="form-control mb-2" placeholder="הכנס כתובת מייל" />
+        <button class="btn btn-warning w-100" onclick="sendNewsletter()">הרשמה</button>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h5>עקבו אחרינו</h5>
+        <div class="d-flex gap-3 justify-content-center justify-content-md-start">
+          <a href="#" aria-label="פייסבוק"><i class="fab fa-facebook fa-2x text-white"></i></a>
+          <a href="#" aria-label="אינסטגרם"><i class="fab fa-instagram fa-2x text-white"></i></a>
+          <a href="#" aria-label="וואטסאפ"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+        </div>
+      </div>
+    </div>
+    <p class="text-center mt-4 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
+    <p class="text-center mt-4 mb-0 small">זקוק לעזרה נוספת? יש לך שאלות נוספות? מוזמן ליצור קשר בטלפון 054-11001100 או
+      במייל <a href="mailto:renty-support@gmail.com" class="text-warning">renty-support@gmail.com</a></p>
+
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+
+  <script>
+    AOS.init();
+
+    function showUnavailableMessage() {
+      alert('מצטערים, אופציה זו עדיין לא זמינה.');
     }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    AOS.init();
+
+    function showUnavailableMessage() {
+      alert('מצטערים, אופציה זו עדיין לא זמינה.');
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+
+  </script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init({
+        publicKey: "_68MbDHFCtMkv_MS-",
+      });
+    })();
+
+    function sendNewsletter() {
+      const emailInput = document.getElementById('newsletterEmail');
+      const email = emailInput.value.trim();
+
+      if (!email || !email.includes('@')) {
+        alert('אנא הזן כתובת מייל תקינה.');
+        return;
+      }
+
+      // זה המקום לשים את זה:
+      const templateParams = {
+        email: email  // זה חייב להתאים לשם המשתנה בתבנית שלך: {{email}}
+      };
+
+      emailjs.send("service_7y4l8x9", "template_3ou5uj1", templateParams)
+        .then(() => {
+          alert('נרשמת בהצלחה לרשימת התפוצה של Renty 🎉');
+          emailInput.value = '';
+
+          const successMsg = document.createElement('div');
+          successMsg.className = 'alert alert-success mt-2';
+          successMsg.textContent = 'ההרשמה בוצעה בהצלחה!';
+          emailInput.parentNode.appendChild(successMsg);
+
+          setTimeout(() => successMsg.remove(), 5000);
+        })
+        .catch((error) => {
+          console.error("EmailJS Error:", error);
+          alert('אירעה שגיאה בשליחה. נסה שוב מאוחר יותר.');
+        });
+    }
+  </script>
+  <!-- Firebase compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+  <script>
+  console.log("Loading recent products...");
+  window.addEventListener("load", async () => {
+    const productsContainer = document.getElementById("recentProducts");
+    const snapshot = await firebase.firestore()
+      .collection("products")
+      .orderBy("createdAt", "desc")
+      .limit(8)
+      .get();
+
+    const storage = firebase.storage();
+
+    snapshot.forEach(async (doc) => {
+      const data = doc.data();
+      const id = doc.id;
+
+      try {
+        const ref = storage.refFromURL(data.imageUrl);
+        const imageUrl = await ref.getDownloadURL();
+
+        const card = document.createElement("div");
+        card.className = "col";
+        card.innerHTML = `
+          <a href="product.html?id=${id}" class="text-decoration-none text-dark">
+            <div class="card text-center">
+              <img src="${imageUrl}" class="card-img-top category-icon" alt="${data.name}">
+              <div class="card-body">
+                <p>${data.name}</p>
+              </div>
+            </div>
+          </a>
+        `;
+        productsContainer.appendChild(card);
+      } catch (error) {
+        console.error("שגיאה בהצגת תמונה:", error);
+      }
+    });
   });
-
-  function logoutUser() {
-  localStorage.setItem("didLogout", "true");
-  firebase.auth().signOut().then(() => {
-    window.location.href = "logout.html";
-  }).catch((error) => {
-    console.error("שגיאה בהתנתקות:", error);
-    alert("אירעה שגיאה בעת ההתנתקות.");
-  });
-}
-
-
-
-</script>
-
+  </script>
+    <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+  </script>
+   <script src="navbar-auth.js"></script>
 </body>
 </html>

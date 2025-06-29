@@ -221,9 +221,74 @@
     </div>
   </div>
 </div>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("productId");
+    if (!productId) {
+      alert("לא נבחר מוצר להזמנה. תחזור לדף המוצר.");
+      window.location.href = "index.html";
+    }
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKphZ1LcyjY3fyMYtMUNTL_u5MHIQACbo",
+      authDomain: "renty-final.firebaseapp.com",
+      projectId: "renty-final",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    db.collection("products").doc(productId).get().then(doc => {
+      if (doc.exists) {
+        const product = doc.data();
+        console.log("Loaded product:", product);
+
+        // עדכן כותרת הטופס בשם המוצר
+        document.querySelector("h2").textContent = `הזמנה עבור: ${product.name}`;
+
+        // עדכן מחיר ליום בטופס
+        document.getElementById("dailyPrice").value = product.price;
+
+        // שמור את כל פרטי המוצר למשתנה גלובלי
+        window.productDetails = {
+          id: productId,
+          ...product
+        };
+      } else {
+        alert("המוצר לא נמצא במערכת. תחזור לדף הבית.");
+        window.location.href = "index.html";
+      }
+    }).catch(err => {
+      console.error("שגיאה בטעינת פרטי המוצר:", err);
+      alert("שגיאה בטעינת פרטי המוצר. חזור לדף הבית.");
+      window.location.href = "index.html";
+    });
+    const auth = firebase.auth();
+   
+    auth.onAuthStateChanged(async user => {
+      if (!user) {
+        alert("חובה להתחבר כדי לבצע הזמנה.");
+        window.location.href = "EntryExisting.html";
+      } else {
+        const userDoc = await db.collection("users").doc(user.uid).get();
+        if (userDoc.exists) {
+          window.currentUser = {
+            uid: user.uid,
+            email: user.email,
+            ...userDoc.data()
+          };
+          console.log("Current user loaded:", window.currentUser);
+        } else {
+          alert("לא נמצאו פרטי משתמש. חזור לדף הבית.");
+          window.location.href = "index.html";
+        }
+      }
+    });
+
+
     // איתחול EmailJS בתחילת טעינת הדף
     emailjs.init("_68MbDHFCtMkv_MS-"); // וודא שזה ה-Public Key הנכון שלך
 
@@ -415,7 +480,7 @@ function calculatePrices() {
 
 
     // אימות כללי לפני שליחת הטופס (לפני EmailJS)
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault(); // עצור שליחה רגילה כדי לבצע ולידציה ושליחה עם EmailJS
 
       const expiry = expiryInput.value;
@@ -534,6 +599,28 @@ function calculatePrices() {
         templateParams.pickup_name = document.getElementById("pickupName")?.value || '';
         templateParams.pickup_phone = document.getElementById("pickupPhone")?.value || '';
         templateParams.pickup_notes = document.getElementById("pickupNotes")?.value || '';
+      }
+
+      const bookingData = {
+        productId: window.productDetails.id,
+        productDetails: window.productDetails,
+        userId: window.currentUser.uid,
+        userInfo: window.currentUser,
+        startDate: startDateInput.value,
+        endDate: endDateInput.value,
+        totalDays: totalDaysInput.value,
+        dailyPrice: dailyPriceInput.value,
+        totalPrice: calculatePricesInput.value,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      try {
+        await db.collection("orders").add(bookingData);
+        console.log("הזמנה נשמרה בהצלחה במסד הנתונים");
+      } catch (error) {
+        console.error("שגיאה בשמירת ההזמנה:", error);
+        alert("אירעה שגיאה בשמירת ההזמנה. נסה שוב מאוחר יותר.");
+        return; // עצור את המשך התהליך אם השמירה נכשלה
       }
 
       console.log("Sending EmailJS with:", templateParams);
