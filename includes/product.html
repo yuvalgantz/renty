@@ -1,178 +1,241 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="pageTitle">פרטי מוצר - Renty</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="CSS/design.css">
-  <style>
-    .product-img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="pageTitle">פרטי מוצר - Renty</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/design.css" />
+    <style>
+      .product-img {
+        width: 100%;
+        object-fit: cover;
+      }
+    </style>
+    <!-- Firebase compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  </head>
+  <body>
+    <div id="navbar-placeholder"></div>
+    <script>
+      fetch("navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+        });
+    </script>
+    <script src="navbar-auth.js"></script>
 
-<header class="bg-dark text-white py-3">
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="index.html">Renty - פלטפורמה חכמה להשכרת ציוד</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link text-white" href="index.html">דף הבית</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="AboutUs.html">אודות</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="Categories.html">קטגוריות</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="login.html">הרשמה</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="EntryExisting.html">התחברות</a></li>
-          </ul>
+    <section class="container py-5">
+      <h2 class="mb-4" id="productTitle">טוען מוצר...</h2>
+      <div class="row mb-4">
+        <div class="col-md-5">
+          <img id="productImage" src="" alt="תמונה" class="product-img" />
+        </div>
+        <div class="col-md-7">
+          <p><strong>שם מוצר:</strong> <span id="productName"></span></p>
+          <p><strong>תיאור מוצר:</strong> <span id="description"></span></p>
+          <p><strong>שם בעל המוצר:</strong> <span id="ownerName"></span></p>
+          <p>
+            <strong>טלפון ליצירת קשר:</strong> <span id="ownerPhone"></span>
+          </p>
+          <p><strong>קטגוריית מוצר:</strong> <span id="category"></span></p>
+          <p><strong>תאריך התחלה:</strong> <span id="startDate"></span></p>
+          <p><strong>תאריך סיום:</strong> <span id="endDate"></span></p>
+          <p><strong>מחיר ליום:</strong> <span id="price"></span> ש"ח</p>
+          <hr />
+          <p class="fw-bold">האם תרצה להשכיר את המוצר?</p>
+          <a href="newItemForm.html" class="btn btn-warning">השכר מוצר</a>
         </div>
       </div>
-    </nav>
-  </div>
-</header>
+    </section>
 
-<section class="container py-5">
-  <h2 class="mb-4" id="productTitle">טוען מוצר...</h2>
-  <div class="row mb-4">
-    <div class="col-md-5">
-      <img id="productImage" src="" alt="תמונה" class="product-img">
-    </div>
-    <div class="col-md-7">
-      <p><strong>שם מוצר:</strong> <span id="productName"></span></p>
-      <p><strong>תיאור מוצר:</strong> <span id="description"></span></p>
-      <p><strong>שם בעל המוצר:</strong> <span id="ownerName"></span></p>
-      <p><strong>טלפון ליצירת קשר:</strong> <span id="ownerPhone"></span></p>
-      <p><strong>קטגוריית מוצר:</strong> <span id="category"></span></p>
-      <p><strong>תאריך התחלה:</strong> <span id="startDate"></span></p>
-      <p><strong>תאריך סיום:</strong> <span id="endDate"></span></p>
-      <p><strong>מחיר ליום:</strong> <span id="price"></span> ש"ח</p>
-      <hr>
-      <p class="fw-bold">האם תרצה להשכיר את המוצר?</p>
-      <a href="newItemForm.html" class="btn btn-warning">השכר מוצר</a>
-    </div>
-  </div>
-</section>
-
-<footer class="bg-dark text-white mt-5 pt-4 pb-3">
-  <div class="container row text-center text-md-start">
-    <!-- כל התוכן של הפוטר נשמר -->
-    <div class="col-md-3 mb-3">
-      <h5>סוגי ציוד להשכרה</h5>
-      <ul class="list-unstyled">
-        <li><a href="homeList.html" class="text-white text-decoration-none">🏠 ציוד לבית</a></li>
-        <li><a href="SchoolList.html" class="text-white text-decoration-none">🎒 ציוד לבית הספר</a></li>
-        <li><a href="PetList.html" class="text-white text-decoration-none">🐾 ציוד לחיות מחמד</a></li>
-        <li><a href="SportList.html" class="text-white text-decoration-none">🏀 ציוד ספורט</a></li>
-        <li><a href="travelList.html" class="text-white text-decoration-none">🧳 ציוד לנסיעות</a></li>
-      </ul>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>קטגוריות נוספות</h5>
-      <ul class="list-unstyled">
-        <li>🖥️ ציוד טכנולוגי</li>
-        <li>🍳 ציוד למטבח</li>
-        <li>🔧 ציוד לשיפוצים</li>
-        <li>🎶 ציוד מוזיקה</li>
-      </ul>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>רשימת תפוצה</h5>
-      <p>קבלו עדכונים והטבות במייל:</p>
-      <input type="email" class="form-control mb-2" placeholder="הכנס כתובת מייל" />
-      <button class="btn btn-warning w-100">הרשמה</button>
-    </div>
-    <div class="col-md-3 mb-3">
-      <h5>עקבו אחרינו</h5>
-      <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-        <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
-        <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
-        <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+    <footer class="bg-dark text-white mt-5 pt-4 pb-3">
+      <div class="container row text-center text-md-start">
+        <!-- כל התוכן של הפוטר נשמר -->
+        <div class="col-md-3 mb-3">
+          <h5>סוגי ציוד להשכרה</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a href="homeList.html" class="text-white text-decoration-none"
+                >🏠 ציוד לבית</a
+              >
+            </li>
+            <li>
+              <a href="SchoolList.html" class="text-white text-decoration-none"
+                >🎒 ציוד לבית הספר</a
+              >
+            </li>
+            <li>
+              <a href="PetList.html" class="text-white text-decoration-none"
+                >🐾 ציוד לחיות מחמד</a
+              >
+            </li>
+            <li>
+              <a href="SportList.html" class="text-white text-decoration-none"
+                >🏀 ציוד ספורט</a
+              >
+            </li>
+            <li>
+              <a href="travelList.html" class="text-white text-decoration-none"
+                >🧳 ציוד לנסיעות</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>קטגוריות נוספות</h5>
+          <ul class="list-unstyled">
+            <li>🖥️ ציוד טכנולוגי</li>
+            <li>🍳 ציוד למטבח</li>
+            <li>🔧 ציוד לשיפוצים</li>
+            <li>🎶 ציוד מוזיקה</li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>רשימת תפוצה</h5>
+          <p>קבלו עדכונים והטבות במייל:</p>
+          <input
+            type="email"
+            class="form-control mb-2"
+            placeholder="הכנס כתובת מייל"
+          />
+          <button class="btn btn-warning w-100">הרשמה</button>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h5>עקבו אחרינו</h5>
+          <div
+            class="d-flex gap-3 justify-content-center justify-content-md-start"
+          >
+            <a href="#"><i class="fab fa-facebook fa-2x text-white"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-2x text-white"></i></a>
+            <a href="#"><i class="fab fa-whatsapp fa-2x text-white"></i></a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <p class="text-center mt-4 mb-0 small">זקוק לעזרה נוספת? צור קשר: <a href="mailto:renty-support@gmail.com" class="text-warning">renty-support@gmail.com</a></p>
-  <p class="text-center mt-2 mb-0 small">© 2025 Renty. כל הזכויות שמורות.</p>
-</footer>
+      <p class="text-center mt-4 mb-0 small">
+        זקוק לעזרה נוספת? צור קשר:
+        <a href="mailto:renty-support@gmail.com" class="text-warning"
+          >renty-support@gmail.com</a
+        >
+      </p>
+      <p class="text-center mt-2 mb-0 small">
+        © 2025 Renty. כל הזכויות שמורות.
+      </p>
+    </footer>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAKphZ1LcyjY3fyMYtMUNTL_u5MHIQACbo",
-    authDomain: "renty-final.firebaseapp.com",
-    projectId: "renty-final",
-  };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAKphZ1LcyjY3fyMYtMUNTL_u5MHIQACbo",
+        authDomain: "renty-final.firebaseapp.com",
+        projectId: "renty-final",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
 
-  window.addEventListener("load", () => {
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id");
+      window.addEventListener("load", () => {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get("id");
 
-  console.log("productId from URL:", productId);
+        console.log("productId from URL:", productId);
 
-  if (productId) {
-    db.collection("products").doc(productId).get().then(doc => {
-      if (doc.exists) {
-        const data = doc.data();
-        console.log("data from firestore:", data);
-        document.getElementById("pageTitle").textContent = data.name + " - Renty";
-        document.getElementById("productTitle").textContent = data.name;
-        document.getElementById("productName").textContent = data.name;
-        document.getElementById("description").textContent = data.description;
-        document.getElementById("ownerName").textContent = data.ownerName;
-        document.getElementById("ownerPhone").textContent = data.ownerPhone;
-        document.getElementById("category").textContent = data.category;
-        document.getElementById("startDate").textContent = data.startDate;
-        document.getElementById("endDate").textContent = data.endDate;
-        document.getElementById("price").textContent = data.price;
-        document.querySelector(".btn-warning").href = `newItemForm.html?productId=${productId}`;
+        if (productId) {
+          db.collection("products")
+            .doc(productId)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                const data = doc.data();
+                console.log("data from firestore:", data);
+                document.getElementById("pageTitle").textContent =
+                  data.name + " - Renty";
+                document.getElementById("productTitle").textContent = data.name;
+                document.getElementById("productName").textContent = data.name;
+                document.getElementById("description").textContent =
+                  data.description;
+                document.getElementById("ownerName").textContent =
+                  data.ownerName;
+                document.getElementById("ownerPhone").textContent =
+                  data.ownerPhone;
+                document.getElementById("category").textContent = data.category;
+                document.getElementById("startDate").textContent =
+                  data.startDate;
+                document.getElementById("endDate").textContent = data.endDate;
+                document.getElementById("price").textContent = data.price;
+                document.querySelector(
+                  ".btn-warning"
+                ).href = `newItemForm.html?productId=${productId}`;
 
-        // תקן את imageUrl אם הוא כתוב עם דומיין שגוי
-        let fixedImageUrl = data.imageUrl.replace(
-        "gs://renty-final.firebasestorage.app/",
-        "gs://renty-final.appspot.com/"
-        );
+                const storage = firebase.storage();
+                const fileRef = storage.refFromURL(data.imageUrl);
+                fileRef
+                  .getDownloadURL()
+                  .then((url) => {
+                    console.log("image url", url);
+                    document.getElementById("productImage").src = url;
+                  })
+                  .catch((err) => console.error("error loading image", err));
 
-        // נוודא שהקישור מתחיל ב-gs:// ואז נבנה קישור ציבורי מ־Firebase Storage
-        if (fixedImageUrl.startsWith("gs://")) {
-          const pathOnly = fixedImageUrl.replace("gs://renty-final.appspot.com/", "");
-          const encodedPath = encodeURIComponent(pathOnly);
-          const storage = firebase.storage();
-          const ref = storage.refFromURL(fixedImageUrl);
-          ref.getDownloadURL().then(downloadURL => {
-            document.getElementById("productImage").src = downloadURL;
-          }).catch(err => {
-            console.error("שגיאה בטעינת תמונה:", err);
-            document.getElementById("productImage").alt = "תמונה לא זמינה";
-          });
+                // תקן את imageUrl אם הוא כתוב עם דומיין שגוי
+                // let fixedImageUrl = data.imageUrl.replace(
+                //   "gs://renty-final.firebasestorage.app/",
+                //   "gs://renty-final.appspot.com/"
+                // );
 
+                // // נוודא שהקישור מתחיל ב-gs:// ואז נבנה קישור ציבורי מ־Firebase Storage
+                // if (fixedImageUrl.startsWith("gs://")) {
+                //   const pathOnly = fixedImageUrl.replace(
+                //     "gs://renty-final.appspot.com/",
+                //     ""
+                //   );
+                //   const encodedPath = encodeURIComponent(pathOnly);
+                //   const storage = firebase.storage();
+                //   const ref = storage.refFromURL(fixedImageUrl);
+                //   ref
+                //     .getDownloadURL()
+                // .then((downloadURL) => {
+                //   document.getElementById("productImage").src = downloadURL;
+                // })
+                // .catch((err) => {
+                //       console.error("שגיאה בטעינת תמונה:", err);
+                //       document.getElementById("productImage").alt =
+                //         "תמונה לא זמינה";
+                //     });
+                // } else {
+                //   console.warn("imageUrl לא תקין:", data.imageUrl);
+                //   document.getElementById("productImage").alt =
+                //     "תמונה לא זמינה";
+                // }
+              } else {
+                document.getElementById("productTitle").textContent =
+                  "המוצר לא נמצא";
+              }
+            });
         } else {
-          console.warn("imageUrl לא תקין:", data.imageUrl);
-          document.getElementById("productImage").alt = "תמונה לא זמינה";
+          document.getElementById("productTitle").textContent = "לא נבחר מוצר";
         }
-      } else {
-        document.getElementById("productTitle").textContent = "המוצר לא נמצא";
-      }
-    });
-  } else {
-    document.getElementById("productTitle").textContent = "לא נבחר מוצר";
-  }
-});
-
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>
