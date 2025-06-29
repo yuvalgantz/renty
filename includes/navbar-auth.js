@@ -22,8 +22,6 @@ window.addEventListener("load", () => {
     appId: "1:897210047726:web:39d8a0361054091db7e7ff",
   };
 
-  console.log("firebase config!");
-
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();

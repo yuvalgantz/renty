@@ -67,7 +67,6 @@
               <th>מיקום</th>
               <th>תאריך התחלה</th>
               <th>תאריך סיום</th>
-              <th>סטטוס החזרה</th>
             </tr>
           </thead>
           <tbody id="rentalsTableBody">
@@ -144,29 +143,32 @@
         appId: "1:897210047726:web:39d8a0361054091db7e7ff",
       };
       firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
       const db = firebase.firestore();
 
-      db.collection("orders")
-        .where("userId", "==", firebase.auth().currentUser.uid)
-        .get()
-        .then((querySnapshot) => {
-          const tbody = document.getElementById("rentalsTableBody");
-          querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            const row = `
+      auth.onAuthStateChanged(async (user) => {
+        db.collection("orders")
+          .where("userId", "==", user.uid)
+          .get()
+          .then((querySnapshot) => {
+            const tbody = document.getElementById("rentalsTableBody");
+            querySnapshot.forEach((doc) => {
+              const data = doc.data();
+              const row = `
         <tr>
-          <td>${data.productName}</td>
-          <td>${data.renterName}</td>
-          <td>${data.phone}</td>
-          <td>${data.location}</td>
+          <td>${data.productDetails.name}</td>
+          <td>${data.userInfo.firstName}</td>
+          <td>${data.userInfo.phone}</td>
+          <td>${data.userInfo.address}</td>
           <td>${data.startDate}</td>
           <td>${data.endDate}</td>
           <td>${data.returnStatus}</td>
         </tr>
       `;
-            tbody.innerHTML += row;
+              tbody.innerHTML += row;
+            });
           });
-        });
+      });
     </script>
   </body>
 </html>
